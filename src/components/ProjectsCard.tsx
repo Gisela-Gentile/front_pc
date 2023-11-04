@@ -14,7 +14,7 @@ export function ProjectsCard({ project }:{ project: Project },) {
                 <h6 className="card-subtitle mb-2 text-muted">Author: {author.username}</h6>
                 <p className="card-text">{description}</p>
                 <div><label>Categoría:</label>{category.name}</div>
-                <Link href='/project/[proyectId]'as={`/project/${projectId}`}> Ver mas...</Link>
+                <Link href='/project/[projectId]'as={`/project/${projectId}`}> Ver mas...</Link>
             </div>
         </div>
     )
