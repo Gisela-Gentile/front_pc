@@ -1,9 +1,10 @@
 export type User = {
     email: string,
     username: string,
-    firstName: string,
-    lastName: string,
     userId: number,
+    firstName?: string,
+    lastName?: string,
+    dateRegistration?:string,
 }
 export type CreateUser = {
     password: string,    

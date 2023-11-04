@@ -5,21 +5,31 @@ export type Document = {
   documentId: number,
   type: string,
   creationDate: string,
-  lastHistoryId: string,
+  lastHistoryId: number,
   visits: number,
   project: Project,
   author: Collaborator,
 }
-export type History = {
-  title:string,
-  content:string,
-  messagesLog:string,
-  visits: number,
-  historyId:string,
-  creationDate: string,
-}
 
+export type ItemLastDocument = {
+  title:string,
+  creationDateDocument: string,
+  creationDateHistory: string,
+  historyId: number,
+  documentId: number,
+  authorDocument: number,
+  authorRevision: number,
+};
+      
 export type DocumentComplete = {
-  document:Document,
-  lastVersion:History
+  title:string,
+  creationDate: string,
+  historyId: number,
+  documentId: number,
+  authorDocument: number,
+  authorRevision: number,
+  content:string,
+  visits: number,  
+  projectId: number,
+  type:string,  
 }

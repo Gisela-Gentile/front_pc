@@ -1,5 +1,5 @@
 {/*import styles from '@/components/ListCategories.module.css'*/}
-import { Collaborator, ListCollaborators } from '@/app/interfaces/Collaborator';
+import { Collaborator,} from '@/app/interfaces/Collaborator';
 import ItemListCollaborator from './ItemListCollaborator';
 
 

@@ -37,7 +37,7 @@ export function Navegacion() {
             <div className="collapse navbar-collapse" id="navbarColor01">
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                  <Link className={`nav-link ${pathname === '/restapi' ? 'active' : ''}`} href="/restapi">Api</Link>
+                  <Link className={`nav-link ${pathname === '/api' ? 'active' : ''}`} href="/api">Api</Link>
                 </li>
                 <li className="nav-item">
                   <Link className={`nav-link ${pathname === '/docs' ? 'active' : ''}`} href="/docs">Docs</Link>
