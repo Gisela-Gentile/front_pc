@@ -38,8 +38,8 @@ export default function LoginPage() {
             router.push("/dashboard");
             return response;*/}
         } else {
-            setMessage('Invalid credentials');
-            return NextResponse.json({ message: "Invalid credentials",},{status: 401,});
+            setMessage('Credenciales invalidas');
+            return NextResponse.json({ message: "Credenciales invalidas",},{status: 401,});
         }
     }
        
@@ -60,12 +60,12 @@ export default function LoginPage() {
     return (
         <>
             <h1>Login</h1>
-            <div className="container rounded text-center col-xs-12 col-md-4 col-sm-3 p-5 mt-4 bg-sesion">
+            <div className="container rounded text-center col-md-6 col-xs-12 p-5 mt-4 bg-sesion">
                 <div className="row align-items-center">
                     <div className="">
                         <h2 className="text-center">Iniciar sesión</h2>                        
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
+                            <div className="form-group my-3">
                                 <label htmlFor="email">Correo electrónico:</label>
                                 <input
                                     type="email"
@@ -77,7 +77,7 @@ export default function LoginPage() {
                                     onChange={(e) => setFormData({...formData, email: e.target.value,})}                              
                                 />
                             </div>
-                            <div className="form-group">
+                            <div className="form-group my-3">
                                 <label htmlFor="password">Contraseña:</label>
                                 <input
                                     type="password"
@@ -94,13 +94,13 @@ export default function LoginPage() {
                                     <input type="checkbox" /> Recordarme
                                 </label>
                             </div>*/}
-                            <button type="submit" id="btn-iniciar" className="btn btn-primary btn-block">
+                            <button type="submit" id="btn-iniciar" className="m-3 btn btn-primary btn-block">
                                 Iniciar sesión
                             </button>
                             <button
                                 type="button"
                                 id="btn-pass"
-                                className="btn btn-secondary btn-block m-2"
+                                className="btn btn-secondary btn-block m-3"
                                 onClick={() => {handlePasswordReset();}}
                             >
                                 Olvidé mi contraseña
