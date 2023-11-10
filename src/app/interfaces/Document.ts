@@ -22,14 +22,17 @@ export type ItemLastDocument = {
 };
       
 export type DocumentComplete = {
-  title:string,
-  creationDate: string,
-  historyId: number,
   documentId: number,
-  authorDocument: number,
-  authorRevision: number,
-  content:string,
-  visits: number,  
+  projectTitle:string,
   projectId: number,
-  type:string,  
+  creationDate: string,
+  totalVisits: number,  
+  authorColDocument: number,
+  historyId: number,
+  title:string,
+  type:string,
+  content:string,
+  authorColRevision: number,
+  historyVisits:number
+  creationDateRevision: string,  
 }

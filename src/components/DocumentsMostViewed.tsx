@@ -12,15 +12,15 @@ async function fetchDocuments():Promise<DocumentComplete[]> {
 export default async function DocumentsMostViewed() {
   const documents = await fetchDocuments();
   return (
-    <section className='py-4'>      
-      <h3>Documentos Mas visitados</h3>
+    <section className='p-4'>      
+      <h2 className="py-4">Documentos Mas visitados</h2>
       <div className='row'>
-        { 
+        { documents.length > 0 ? ( 
           documents.map(( document:DocumentComplete) => (
             <div className='col-md-4' key={document.documentId}>
               <DocumentsCard document={document} />
             </div>
-          ))
+          ))) : (<div className='col-md-12'>No existen Documentos en la actualidad.</div>)
         }
       </div>
     </section>

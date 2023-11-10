@@ -24,19 +24,19 @@ export default function Search() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="col-md-12 text-center">
+    <form onSubmit={onSubmit} className="col-md-12 text-center m-5">
       <input
         key={searchParams?.get('q')}
         type="text"
         name="search"
-        placeholder="Search proyects..."
+        placeholder="Buscar proyectos..."
         autoComplete="off"
         defaultValue={searchParams?.get('q') || ''}
-        className=""
+        className="col-md-7"
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
+      {/*<div className="absolute right-0 top-0 mr-3 flex h-full items-center">
         icono
-      </div>
+  </div>*/}
     </form>
   );
 }

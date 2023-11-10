@@ -8,9 +8,9 @@ export default function Presentation():ReactNode {
         <h1 className={styles.title}>Tus Proyectos y documentos
         </h1>
         <div className={styles.subTitle}>Proyectos Colaborativos es el espacio de trabajo centralizado
-donde se trabaja mejor mas alla de las distancias y encuentros.</div>
+donde se trabaja mejor mas alla de las distancias.</div>
         <div className={styles.signup}>
-            <a className={styles.buttonHasArrowRight} type='button' href='/signup'>Obten Proyectos Colaborativos gratis</a>
+            <a className={styles.buttonHasArrowRight} type='button' href='/register'>Obten Proyectos Colaborativos gratis</a>
         </div>
       </header>
       <Image 
@@ -20,7 +20,6 @@ donde se trabaja mejor mas alla de las distancias y encuentros.</div>
         height={160}
         sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"
         style={{ height: '100%', width: '100%' }}  priority/>
-
     </section>
   )
 }

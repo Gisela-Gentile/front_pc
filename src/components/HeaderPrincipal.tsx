@@ -1,8 +1,8 @@
 import { Navegacion } from "./Navegacion";
-
+import styles from '@/app/page.module.css';
 export default function HeaderPrincipal() {
   return (
-    <header style={{ backgroundColor: "#2E3C50" }}>
+    <header className={styles.fondo}>
       <div className='container'>
         <Navegacion />
       </div>

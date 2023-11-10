@@ -1,0 +1,28 @@
+.title {
+    display: inline-block; 
+    height: 60px;
+    overflow: hidden;
+    color:#2E3E50;
+}
+
+.title::first-letter,
+.description::first-letter ,
+.category::first-letter {
+    text-transform: uppercase;
+}
+.description {
+    display: block;
+    height: 100px;
+    overflow: hidden;
+    text-align: justify;
+    padding: 5px;
+    margin: 10px 0;    
+}
+.category{
+    background-color: black;
+    float: right;
+    margin: 4px;
+    color:beige;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
