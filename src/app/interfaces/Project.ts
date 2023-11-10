@@ -11,8 +11,8 @@ export type ProjectComplete = {
 export type Project = {
   title: string,
   description:string,
-  author: User,
-  category: Category,
+  author?: User,
+  category?: Category,
   projectId: number, 
   creationDate: string, 
 }

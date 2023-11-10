@@ -68,11 +68,12 @@ export default function RegisterPage() {
   
   return (
     <>
-      <h1>Registro</h1>
-      <div className="container rounded text-center col-xs-12 col-md-4 col-sm-3 p-5 mt-4 bg-sesion">
+      <section className="p-5 m-5">
+      <div className="rounded border text-center col-xs-12 offset-md-3 col-md-6  p-5 bg-sesion">
         <div className="row align-items-center">
+          <h2 className="text-center">Registrarse</h2>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="firstName">Nombre:<sup aria-hidden="true">*</sup></label>
               <input
                 type="text"
@@ -84,7 +85,7 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value, })}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="lastName">Apellido:<sup aria-hidden="true">*</sup></label>
               <input
                 type="text"
@@ -96,7 +97,7 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value, })}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="userame">Nombre de Perfil:<sup aria-hidden="true">*</sup></label>
               <input
                 type="text"
@@ -108,7 +109,7 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, username: e.target.value, })}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="email">Correo electrónico:<sup aria-hidden="true">*</sup></label>
               <input
                 type="email"
@@ -120,7 +121,7 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value, })}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="password">Contraseña:<sup aria-hidden="true">*</sup></label>
               <input
                 type="password"
@@ -132,7 +133,7 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value, })}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group my-3">
               <label htmlFor="repassword">Reingrese la Contraseña:<sup aria-hidden="true">*</sup></label>
               <input
                 type="password"
@@ -144,13 +145,14 @@ export default function RegisterPage() {
                 onChange={(e) => setFormData({ ...formData, repassword: e.target.value, })}
               />
             </div>
-            <button type="submit" id="btn-registar" className="btn btn-primary btn-block">
+            <button type="submit" id="btn-registar" className="btn btn-primary btn-block m-3">
               Enviar
             </button>
           </form>
           {message && <div className="alert alert-danger">{message}</div>}
         </div>
       </div>
+      </section>
     </>
   )
 }

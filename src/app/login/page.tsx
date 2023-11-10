@@ -8,21 +8,21 @@ import { useAuth } from "@/app/context/AuthContext";
 export default function LoginPage() {
     const router = useRouter();
     const { selectToken } = useAuth();
-    const [message,setMessage] = useState('')   
-    const [formData, setFormData] = useState({email: '',password: '',});
-    
-    async function fetchUser(email:string,password:string) {      
+    const [message, setMessage] = useState('')
+    const [formData, setFormData] = useState({ email: '', password: '', });
+
+    async function fetchUser(email: string, password: string) {
         const res = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email,password}),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
         });
         const data = await res.json();
         console.log(data);
         if (res.status === 201) {
-           
-          selectToken(data.data.access_token);
-          return data;
+
+            selectToken(data.data.access_token);
+            return data;
             {/*const response = NextResponse.json({data,});
             response.cookies.set({
                 name: "myTokenName",
@@ -39,31 +39,31 @@ export default function LoginPage() {
             return response;*/}
         } else {
             setMessage('Credenciales invalidas');
-            return NextResponse.json({ message: "Credenciales invalidas",},{status: 401,});
+            return NextResponse.json({ message: "Credenciales invalidas", }, { status: 401, });
         }
     }
-       
-      
-    const handleSubmit = async (event:React.SyntheticEvent) => {
+
+
+    const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
         try {
-            const res = await fetchUser(formData.email,formData.password);
+            const res = await fetchUser(formData.email, formData.password);
             router.push("/dashboard");
-        } catch (error){
+        } catch (error) {
             setMessage('')
             return false;
         }
     }
-      
-    function handlePasswordReset(){}  
-    
+
+    function handlePasswordReset() { }
+
     return (
         <>
-            <h1>Login</h1>
-            <div className="container rounded text-center col-md-6 col-xs-12 p-5 mt-4 bg-sesion">
+            <section className="p-5 m-5">
+            <div className="rounded text-center border offset-md-3 col-md-6 col-xs-12 p-5 bg-sesion">
                 <div className="row align-items-center">
                     <div className="">
-                        <h2 className="text-center">Iniciar sesión</h2>                        
+                        <h2 className="text-center">Iniciar sesión</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group my-3">
                                 <label htmlFor="email">Correo electrónico:</label>
@@ -74,7 +74,7 @@ export default function LoginPage() {
                                     id="email"
                                     value={formData.email}
                                     placeholder="Ingrese Email"
-                                    onChange={(e) => setFormData({...formData, email: e.target.value,})}                              
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value, })}
                                 />
                             </div>
                             <div className="form-group my-3">
@@ -86,14 +86,9 @@ export default function LoginPage() {
                                     id="password"
                                     value={formData.password}
                                     placeholder="Ingrese password"
-                                    onChange={(e) => setFormData({...formData, password: e.target.value,})}                              
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value, })}
                                 />
                             </div>
-                            {/*<div className="checkbox">
-                                <label>
-                                    <input type="checkbox" /> Recordarme
-                                </label>
-                            </div>*/}
                             <button type="submit" id="btn-iniciar" className="m-3 btn btn-primary btn-block">
                                 Iniciar sesión
                             </button>
@@ -101,7 +96,7 @@ export default function LoginPage() {
                                 type="button"
                                 id="btn-pass"
                                 className="btn btn-secondary btn-block m-3"
-                                onClick={() => {handlePasswordReset();}}
+                                onClick={() => { handlePasswordReset(); }}
                             >
                                 Olvidé mi contraseña
                             </button>
@@ -110,6 +105,7 @@ export default function LoginPage() {
                     </div>
                 </div>
             </div>
+            </section>
         </>
     )
 }
