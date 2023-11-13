@@ -1,0 +1,8 @@
+.marco {
+    display:inline;
+    color: #fff;
+    font-weight:400;
+    font-size:"20px";
+}
+
+/*style={{['display' as any]:"inline",['color' as any]:"#fff",['fontWeight' as any]:400,['fontSize' as any]:"20px"}}*/

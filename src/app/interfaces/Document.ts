@@ -13,26 +13,26 @@ export type Document = {
 
 export type ItemLastDocument = {
   title:string,
-  creationDateDocument: string,
+  creationDate: string,
   creationDateHistory: string,
   historyId: number,
   documentId: number,
-  authorDocument: number,
-  authorRevision: number,
+  authorColDocument: number,
+  authorColHistory: number,
 };
       
-export type DocumentComplete = {
+export type DocumentComplete = ItemLastDocument & {
+  /*title:string,
+  creationDate: string,
+  creationDateHistory: string,  
+  authorColDocument: number,
   documentId: number,
+  historyId: number,
+  authorColHistory: number,*/
   projectTitle:string,
   projectId: number,
-  creationDate: string,
   totalVisits: number,  
-  authorColDocument: number,
-  historyId: number,
-  title:string,
   type:string,
   content:string,
-  authorColRevision: number,
-  historyVisits:number
-  creationDateRevision: string,  
-}
+  historyVisits:number,  
+}  

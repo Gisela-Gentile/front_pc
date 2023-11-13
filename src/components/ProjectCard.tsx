@@ -1,9 +1,9 @@
 'use client'
-import styles from './ProjectsCard.module.css'
+import styles from './ProjectCard.module.css'
 import { Project } from '@/app/interfaces/Project'
 import Link from 'next/link';
 
-export function ProjectsCard({ project }:{ project: Project },) {
+export function ProjectCard({ project }:{ project: Project },) {
     const {projectId,title, creationDate, author, category,description } = project;      
     return (        
         <div className='card'>

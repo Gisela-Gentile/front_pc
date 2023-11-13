@@ -24,10 +24,12 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
       <body>        
         <AuthProvider>
           <HeaderPrincipal/>
-          <Container>
+          {/*<Container>*/}
+          
             {children}
-          </Container>
-        </AuthProvider>
+            
+          {/*</Container>*/}
+          </AuthProvider>
         <FooterPrincipal/>        
       </body>
     </html>

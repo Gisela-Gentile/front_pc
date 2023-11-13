@@ -7,15 +7,9 @@ import { User } from '../interfaces/User';
 export const AuthContext = createContext<{
   token:string;
   user: User | null;
-  
   selectToken: (newToken: string) => void; 
   signOut: () => void;
-}>({
-  token:'',
-  user: null,
-  selectToken: (newToken: string) => {},
-  signOut: () => {}
-});
+}>({ token:'', user: null, selectToken: (newToken: string) => {},  signOut: () => {}});
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -28,18 +22,15 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   const [token, setToken] = useState('');
-  const[user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   
   async function loadUser(newToken: string) {
-    const res = await fetch(`${API_URL}/auth/profile`,{
-        method: 'GET',
-        headers: {'Authorization': `Bearer ${newToken}`}
-      }
-    );
-    console.log(res);
+    const res = await fetch(`${API_URL}/auth/profile`,{ method: 'GET',  headers: {'Authorization': `Bearer ${newToken}`}});
+    /*console.log(res);*/
     const data = await res.json();
-    console.log(data);
+    /*console.log(data);*/
     setUser(data.user);
+    localStorage.setItem('user', JSON.stringify(data.user));
   }
 
   const selectToken = ( newToken: string) => {

@@ -2,7 +2,7 @@
 import { DocumentComplete } from "@/app/interfaces/Document";
 import styles from '@/app/page.module.css';
 import owen from '@/components/DocumentView.module.css';
-import UsuarioCard from "./UsuarioCard";
+import CollaboratorAutorCard from "./CollaboratorAutorCard";
 
 export default function DocumentView({ documentComplete }: { documentComplete: DocumentComplete }) {
 
@@ -24,7 +24,7 @@ export default function DocumentView({ documentComplete }: { documentComplete: D
                     {   documentComplete.authorColDocument && 
                         <div className="text-center border rounded p-4">
                             <h5>Autor del Documento</h5>
-                            <p><UsuarioCard id={documentComplete.authorColDocument} /></p>
+                            <p><CollaboratorAutorCard id={documentComplete.authorColDocument} /></p>
                         </div>
                     }
                     </div>    
@@ -54,10 +54,10 @@ export default function DocumentView({ documentComplete }: { documentComplete: D
                     </div>
                     
                     <div className="col-4">        
-                    {   documentComplete.creationDateRevision && 
+                    {   documentComplete.creationDateHistory && 
                         <div className="text-center border rounded p-4">
                             <h5>Ultima Revisión</h5>
-                            <p>{new Date(documentComplete.creationDateRevision).toLocaleDateString()}</p>
+                            <p>{new Date(documentComplete.creationDateHistory).toLocaleDateString()}</p>
                         </div>
                     }
                     </div>
