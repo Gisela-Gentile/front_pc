@@ -11,11 +11,11 @@ export default function ProjectsPage() {
     const router = useRouter();
     console.log(`router: ${router}`);
   
-    /*useEffect(() => {
+    useEffect(() => {
       if (!user) {
         router.push('/')
       }
-    }, [])*/
+    }, [])
   
     return (
     <div>
