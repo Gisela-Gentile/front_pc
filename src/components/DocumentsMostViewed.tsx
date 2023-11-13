@@ -1,7 +1,7 @@
 
 import { DocumentComplete } from '@/app/interfaces/Document';
 import { API_URL } from '@/config/constants';
-import { DocumentsCard } from './DocumentsCard';
+import { DocumentCard } from './DocumentCard';
 
 async function fetchDocuments():Promise<DocumentComplete[]> {
   const res = await fetch(`${API_URL}/document/most-viewed`);
@@ -18,7 +18,7 @@ export default async function DocumentsMostViewed() {
         { documents.length > 0 ? ( 
           documents.map(( document:DocumentComplete) => (
             <div className='col-md-4' key={document.documentId}>
-              <DocumentsCard document={document} />
+              <DocumentCard document={document} />
             </div>
           ))) : (<div className='col-md-12'>No existen Documentos en la actualidad.</div>)
         }

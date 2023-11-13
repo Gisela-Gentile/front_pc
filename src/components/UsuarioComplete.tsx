@@ -17,7 +17,7 @@ export default async function UsuarioComplete({id}:{id: number}) {
       <h3>{user.firstName}</h3>
       <h3>{user.lastName}</h3>
       <h3>{user.email}</h3>
-      <h3>{new Date(user.dateRegistration).toLocaleDateString()}</h3>      
+      <h3>{ user.dateRegistration && new Date(user.dateRegistration).toLocaleDateString()}</h3>      
     </>
   )
 }

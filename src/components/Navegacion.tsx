@@ -3,13 +3,13 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from "next/link";
 import { useAuth } from "@/app/context/AuthContext";
-import { useEffect, useState } from 'react';
+import styles from '@/components/Navegacion.module.css'
 
 export function Navegacion() {
   const pathname = usePathname();
   const router = useRouter();
   const { token, user,signOut } = useAuth();
-  const [actual, setActual] = useState('');
+  /*const [actual, setActual] = useState('');*/
 
   const logout = async () => {
     try {
@@ -20,7 +20,7 @@ export function Navegacion() {
     }
     router.push("/");
   };  
-  useEffect(() => setActual(token),[token]);
+  /*useEffect(() => setActual(token),[token]);*/
 
   return (
     <div className='row'>
@@ -57,7 +57,7 @@ export function Navegacion() {
         {(token==='')&&(pathname !== '/login') ?(
         <button type="button" className="btn btn-secondary mx-2" onClick={() => router.push('/login')}>Iniciar sesión</button>):''}
         {(token==='')?(<button type="button" className="btn btn-success mx-2" onClick={() => router.push('/register')}>Registarse</button>):''}
-        {(token !== '')?(<div style={{['display' as any]:"inline",['color' as any]:"#fff",['fontWeight' as any]:400,['fontSize' as any]:"20px"}}>  {user && user.username }</div>):''}
+        {(token !== '')?(<div className={styles.marco}>  {user && user.username }</div>):''}
         {(token !== '')?(<button type="button" className="btn btn-success mx-2" onClick={logout}>Salir</button>):''}
       </div>
     </div>

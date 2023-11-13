@@ -1,14 +1,9 @@
 import { Project } from "./Project";
 import { User } from "./User";
 
-export type Collaborator = {
-    
+export type Collaborator = {    
     rol: ['COLLABORATOR', 'OWNER'],
-    collaboratorId:string,
+    collaboratorId:number,
     project: Project,
     user: User,
 }
-{/*
-export type ListCollaborators = { 
-    collaborator: Collaborator[]
-}*/}

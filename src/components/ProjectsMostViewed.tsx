@@ -1,6 +1,6 @@
 import { Project } from '@/app/interfaces/Project';
 import { API_URL } from '@/config/constants';
-import {ProjectsCard} from './ProjectsCard';
+import {ProjectCard} from './ProjectCard';
 import styles from './ProjectsMostViewed.module.css'
 
 async function fetchProjects() {
@@ -19,7 +19,7 @@ export default async function ProjectsMostViewed() {
         { projects.length > 0 ?
           (projects.slice(0,3).map((project:Project) => (
           <div className='col-md-4' key={project.projectId}>
-             <ProjectsCard project={project} />
+            <ProjectCard project={project} />
           </div>))): (<div className='col-md-12'>No existen Proyectos en la actualidad.</div>)
         }
       </div>

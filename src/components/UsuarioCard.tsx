@@ -13,7 +13,7 @@ export default async function UsuarioCard({id}:{id: number}) {
 
   return (
     <>
-      <Link href={`/perfil/${user.userId}`}>{user.username}</Link>
+      {' '}<Link href={`/perfil/${user.userId}`}>{ user.username}</Link>
     </>
   )
 }

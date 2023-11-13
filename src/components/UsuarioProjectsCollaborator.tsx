@@ -1,6 +1,6 @@
 import { Project } from "@/app/interfaces/Project";
 import { API_URL } from "@/config/constants";
-import { ProjectsCard } from "./ProjectsCard";
+import { ProjectCard } from "./ProjectCard";
 
 
 
@@ -23,7 +23,7 @@ export default async function UsuarioProjectsCollaborator({id}:{id: number}) {
         <div className="row">
         {   projects.map((project:Project) => (
                 <div className='col-md-4' key={project.projectId}>
-                  <ProjectsCard project={project} />
+                  <ProjectCard project={project} />
                 </div>
                 )
               )

@@ -1,8 +1,7 @@
 "use client"
-
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import Nav from "./components/Nav";
 
 export default function DashboardPage() {
@@ -11,22 +10,22 @@ export default function DashboardPage() {
   console.log(`user: ${user}`);
   const router = useRouter();
 
-  useEffect(() => {
+  {/*useEffect(() => {
     if (!user) {
       router.push('/')
     }
-  }, [token,])
+  }, [token,])*/}
 
   return (
-    <>
+    <div className="container">
     <div className="row">
         <div id="sidebar" className="col-md-3" >
-          <Nav/>
+          <Nav />
         </div>
         <div id="content" className="col-md-9" style={{ ['borderLeft' as any]: "1px solid #ccc" }}>
         { user && (<div>Bievenido  {user.firstName} {', '+user.lastName}</div>)}
         </div>
       </div> 
-    </>
+    </div>
   );
 }
