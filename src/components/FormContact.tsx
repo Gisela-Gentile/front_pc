@@ -64,21 +64,16 @@ export default function FormContact() {
 
 
     return (
-        <div className='container'>
-            <div className="container rounded text-center col-xs-12 col-md-6 col-sm-3 p-5 mt-4 bg-success">
-                <h1 className='text-white'> Contacto</h1>
-                <p className='text-white'>¡Nos encantaría escucharte! Utiliza el formulario a continuación para ponerte en contacto con nosotros:</p>
-                <div className="form-group">
+    
+        <div className="container rounded text-center col-xs-12 col-md-6 col-sm-3 p-5 mt-4 bg-white">
 
-
-                    <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='border border-2 border-primary p-2'>
                         <div className="form-group">
                             <label className="form-label mt-4" htmlFor="author"><sup aria-hidden="true"></sup></label>
                             <input
-
                                 type="text"
                                 autoComplete='off'
-                                className="form-control bg-success text-white"
+                                className="form-control bg-light"
                                 id="author"
                                 value={formData.author}
                                 placeholder="Nombre"
@@ -91,7 +86,7 @@ export default function FormContact() {
                             <input
                                 type="email"
                                 autoComplete='off'
-                                className="form-control bg-success text-white"
+                                className="form-control bg-light"
                                 id="email"
                                 value={formData.email}
                                 placeholder="Email"
@@ -104,7 +99,7 @@ export default function FormContact() {
                             <textarea
 
                                 autoComplete='off'
-                                className="form-control bg-success text-white"
+                                className="form-control bg-light"
                                 rows={4}
                                 id="content"
                                 value={formData.content}
@@ -118,7 +113,7 @@ export default function FormContact() {
                         <button
                             onClick={btnBack}
                             type="button"
-                            className="btn btn-primary btn-block m-2"
+                            className="btn btn-danger btn-block m-2"
                         >
                             Cancelar
                         </button>
@@ -126,7 +121,7 @@ export default function FormContact() {
                     </form>
                     {message && <div className="alert alert-warning">{message}</div>}
                 </div>
-            </div>
-        </div>
+            
+        
     )
 }
