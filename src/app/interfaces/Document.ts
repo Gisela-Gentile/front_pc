@@ -22,13 +22,6 @@ export type ItemLastDocument = {
 };
       
 export type DocumentComplete = ItemLastDocument & {
-  /*title:string,
-  creationDate: string,
-  creationDateHistory: string,  
-  authorColDocument: number,
-  documentId: number,
-  historyId: number,
-  authorColHistory: number,*/
   projectTitle:string,
   projectId: number,
   totalVisits: number,  
