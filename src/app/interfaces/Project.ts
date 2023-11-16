@@ -9,10 +9,22 @@ export type ProjectComplete = {
   documents: ItemLastDocument[],
 }
 export type Project = {
+  projectId: number, 
+  title: string,
+  description:string,
+  author: User,
+  category?: Category,  
+  creationDate: string, 
+}
+
+{/*export type CreateProject = Omit<Project, "projectId" | "creationDate">;*/}
+
+export type CreateProject = {
   title: string,
   description:string,
   author?: User,
-  category?: Category,
-  projectId: number, 
-  creationDate: string, 
+  category: string,    
 }
+
+export type UpdateProject = CreateProject;
+  
