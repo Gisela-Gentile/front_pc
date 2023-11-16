@@ -4,6 +4,9 @@ import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import Initial from "./components/Initial";
+import { useProjects } from "../context/ProjectContext";
+import ProjectForm from "./components/ProjectForm";
+
 
 export default function DashboardPage() {
   const { token, user } = useAuth();
@@ -11,12 +14,16 @@ export default function DashboardPage() {
   console.log(`user: ${user}`);
   const [estado, setEstado] = useState("init");
   const router = useRouter();
-
+  const {projectsOwner,projectsCollaborator,loadProjectsOwner,loadProjectsCollaborator } = useProjects();
   useEffect(() => {
     if (!user) {
       router.push('/')
     }
-  }, [token,user])
+  }, [token,user]);
+  
+  useEffect(() => { loadProjectsOwner(); },[]);
+  useEffect(() => { loadProjectsCollaborator(); },[]);
+  
   
   return (
     <div className="container">
@@ -25,8 +32,9 @@ export default function DashboardPage() {
           <Nav />
         </div>
         <div id="content" className="col-md-9" style={{ ['borderLeft' as any]: "1px solid #ccc" }}>
-        {/*{ user && (<div>Bievenido  {user.firstName} {', '+user.lastName}</div>)}*/}
+        
         {estado ==="init" ? ( <Initial/>  ):''}
+        <ProjectForm/>
         </div>
       </div> 
     </div>
