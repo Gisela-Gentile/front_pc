@@ -1,0 +1,8 @@
+.divContent ul {
+    list-style: none;
+    padding-left: 0px;
+}
+.divContent ul li {
+    padding: 2px 5px;
+}
+
