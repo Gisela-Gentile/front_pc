@@ -18,9 +18,7 @@ export default function LoginPage() {
             body: JSON.stringify({ email, password }),
         });
         const data = await res.json();
-        console.log(data);
         if (res.status === 201) {
-
             selectToken(data.data.access_token);
             return data;
             {/*const response = NextResponse.json({data,});
@@ -44,7 +42,7 @@ export default function LoginPage() {
     }
 
 
-    const handleSubmit = async (event: React.SyntheticEvent) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const res = await fetchUser(formData.email, formData.password);
@@ -54,11 +52,8 @@ export default function LoginPage() {
             return false;
         }
     }
-
-    function handlePasswordReset() { }
-
     return (
-        <>
+        <div className="container" style={{['minHeight' as any]:"700px" }}>
             <section className="p-5 m-5">
             <div className="rounded text-center border offset-md-3 col-md-6 col-xs-12 p-5 bg-sesion">
                 <div className="row align-items-center">
@@ -90,23 +85,15 @@ export default function LoginPage() {
                                 />
                             </div>
                             <button type="submit" id="btn-iniciar" className="m-3 btn btn-primary btn-block">
-                                Iniciar sesión
-                            </button>
-                            <button
-                                type="button"
-                                id="btn-pass"
-                                className="btn btn-secondary btn-block m-3"
-                                onClick={() => { handlePasswordReset(); }}
-                            >
-                                Olvidé mi contraseña
-                            </button>
+                                Iniciar Sesión
+                            </button>                            
                         </form>
                         {message && <div className="alert alert-danger">{message}</div>}
                     </div>
                 </div>
             </div>
             </section>
-        </>
+        </div>
     )
 }
 

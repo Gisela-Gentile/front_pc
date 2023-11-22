@@ -4,15 +4,15 @@ import { ProjectCard } from "./ProjectCard";
 
 
 
-async function fetchUsuarioProjectsCollaborator(id:number):Promise<any> {
-    const res = await fetch(`${API_URL}/project/user/${id}/collaborators-projects`);
+async function fetchUsuarioProjectsCollaborator(id:number):Promise<Project[]> {
+    const res = await fetch(`${API_URL}/project/user/${id}/collaborators-projects`,{cache: 'no-store'});
     const data = await res.json();
     return data.data;
 
   }
 
 export default async function UsuarioProjectsCollaborator({id}:{id: number}) {
-    const projects : Project[] = await fetchUsuarioProjectsCollaborator(id);
+    const projects = await fetchUsuarioProjectsCollaborator(id);
 
   return (
     <section>

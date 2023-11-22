@@ -1,7 +1,7 @@
 'use client';
-
 import { createUrl } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { HiOutlineSearch } from "react-icons/hi";
 
 export default function Search() {
   const router = useRouter();
@@ -34,9 +34,8 @@ export default function Search() {
         defaultValue={searchParams?.get('q') || ''}
         className="col-md-7"
       />
-      {/*<div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        icono
-  </div>*/}
+      <span className="absolute m-3 flex h-full items-center">
+      <HiOutlineSearch/></span>
     </form>
   );
 }

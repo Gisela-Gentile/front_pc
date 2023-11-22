@@ -2,14 +2,14 @@ import { Project } from "@/app/interfaces/Project";
 import { API_URL } from "@/config/constants";
 import { ProjectCard } from "./ProjectCard";
 
-async function fetchUsuarioProjectsOwner(id:number):Promise<any> {
-  const res = await fetch(`${API_URL}/project/user/${id}/owner-projects`);
+async function fetchUsuarioProjectsOwner(id:number):Promise<Project[]> {
+  const res = await fetch(`${API_URL}/project/user/${id}/owner-projects`,{cache: 'no-store'});
   const data = await res.json();
   return data.data;
 }
 
 export default async function UsuarioProjectsOwner({id}:{id: number}) {
-  const projects : Project[] = await fetchUsuarioProjectsOwner(id);
+  const projects = await fetchUsuarioProjectsOwner(id);
   return (
     <section>
       <div className="container">

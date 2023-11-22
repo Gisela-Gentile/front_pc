@@ -1,10 +1,10 @@
 import { Project } from '@/app/interfaces/Project';
 import { API_URL } from '@/config/constants';
 import {ProjectCard} from './ProjectCard';
-import styles from './ProjectsMostViewed.module.css'
+
 
 async function fetchProjects() {
-  const res = await fetch(`${API_URL}/project/view/all`);
+  const res = await fetch(`${API_URL}/project/view/all`, {cache: 'no-store'});
   const data = await res.json();
   return data;
 }
