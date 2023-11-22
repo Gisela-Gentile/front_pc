@@ -1,5 +1,7 @@
+"use client"
+import Breadcrumbs from "@/app/dashboard/components/Breadcrumbs";
 import { ProjectComplete} from "@/app/interfaces/Project";
-import ProjectView from "@/components/ProjectView";
+import ProjectViewComplete from "@/components/ProjectViewComplete";
 import { API_URL } from "@/config/constants";
 
 async function fetchProjectComplete(id: number): Promise<ProjectComplete> {
@@ -11,8 +13,14 @@ async function fetchProjectComplete(id: number): Promise<ProjectComplete> {
 export default async function ProjectPage({ params: { id }, }: { params: { id: string } }) {
   const projectComplete = await fetchProjectComplete(Number(id));
   return (
-    <>     
-      <ProjectView projectComplete={projectComplete} />    
-    </>
+    <div className="container"> 
+     <Breadcrumbs breadcrumbs={[{ label: 'Inicio', href: '/', },]}/>
+      <hr/>   
+      <div className="row">
+        <div className="offset-2 col-8">        
+          <ProjectViewComplete projectComplete={projectComplete} />    
+          </div>
+      </div>
+    </div>
   )
 }
