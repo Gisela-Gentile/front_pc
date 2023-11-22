@@ -9,19 +9,15 @@ export function Navegacion() {
   const pathname = usePathname();
   const router = useRouter();
   const { token, user,signOut } = useAuth();
-  /*const [actual, setActual] = useState('');*/
-
   const logout = async () => {
     try {
       signOut();
-      console.log("Limpiar la cookie o set en vacio el usuario");
     } catch (error) {
       console.error("Error");
     }
     router.push("/");
   };  
-  /*useEffect(() => setActual(token),[token]);*/
-
+  
   return (
     <div className='row'>
       <div className='col-md-8'>
