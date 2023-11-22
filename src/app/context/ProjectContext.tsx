@@ -10,11 +10,11 @@ export const ProjectContext = createContext<{
   projectsCollaborator: Project[];
   loadProjectsOwner: () => Promise<void>;
   loadProjectsCollaborator: () => Promise<void>;
-  createProject: (project: CreateProject) => Promise<void>;
-  deleteProject: (id: number) => Promise<void>;
+  createProject: (project: CreateProject) => Promise<any>;
+  deleteProject: (id: number) => Promise<any>;
   selectedProject: Project | null;
   setSelectedProject: (project: Project | null) => void;
-  updateProject: (id: number, project: UpdateProject) => Promise<void>;
+  updateProject: (id: number, project: UpdateProject) => Promise<any>;
 }>({
   projectsOwner: [],
   projectsCollaborator: [],
@@ -30,20 +30,24 @@ export const ProjectContext = createContext<{
 export const useProjects = () => {
   const context = useContext(ProjectContext);
   if (!context) {
-    throw new Error("useProjects must be used within a ProjectsProvider");
+  throw new Error("useProjects must be used within a ProjectsProvider");
   }
   return context;
 };
 
 export const ProjectsProvider = ({ children }: { children: React.ReactNode }) => {
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const [projectsOwner, setProjectsOwner] = useState<Project[]>([]);
   const [projectsCollaborator, setProjectsCollaborator] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  
 
   async function loadProjectsOwner() {
     const res = await fetch(`${API_URL}/project/my-projects`, {
-      method: 'GET', headers: { 'Content-Type': 'application/json','Authorization':`Bearer ${token}`,},});
+      method: 'GET', 
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization':`Bearer ${token}`,},});
     const data = await res.json();
     setProjectsOwner(data.data);
   }
@@ -58,18 +62,26 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
     setProjectsCollaborator(data.data);
   }
 
-  async function createProject( project: CreateProject) {
-    const res = await fetch(`${API_URL}/project/add`, {
-      method: "POST",
-      body: JSON.stringify(project),
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization':`Bearer ${token}`,
-      },
-    });
-    const newProject = await res.json();
-    setProjectsOwner([...projectsOwner, newProject]);
+  async function createProject( project: CreateProject):Promise<any> {
+    try {
+      const response = await fetch(`${API_URL}/project/add`, {
+        method: "POST",
+        body: JSON.stringify(project),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':`Bearer ${token}`,
+        },
+      });
+      if (response.status===201){
+        const newProject = await response.json();
+        setProjectsOwner([...projectsOwner, newProject]);
+      }      
+      return response.status  
+    } catch(error:any){
+        return error        
+    }
   }
+ 
 
   async function deleteProject(id: number) {
     const res = await fetch(`${API_URL}/project/` + id, {
@@ -79,16 +91,28 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
     setProjectsOwner(projectsOwner.filter((project) => project.projectId !== id));
   }
 
-  async function updateProject(id: number, project: UpdateProject) {
-    const res = await fetch(`${API_URL}/project/`+ id, {
-      method: "PUT",
-      body: JSON.stringify(project),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    setProjectsOwner(projectsOwner.map((project) => (project.projectId === id ? data : project)));
+  async function updateProject(id: number, project: UpdateProject):Promise<any> {
+    try {
+      const response = await fetch(`${API_URL}/project/${id}/edit`, {
+        method: "PUT",
+        body: JSON.stringify(project),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':`Bearer ${token}`,
+        },
+      });
+      console.log(`Este es response adentro de operacion: ${response}`);
+      const data = await response.json();
+      console.log(`Este es data: ${data}`);
+      setProjectsOwner(
+        projectsOwner.map((project) => (
+          project.projectId === id ? data.projectChanged : project)
+        )
+      );
+      return response.status;
+    } catch (error: any){
+        return { error };  
+    }
   }
 
   return (
