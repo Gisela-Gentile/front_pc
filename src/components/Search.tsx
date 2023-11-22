@@ -24,18 +24,24 @@ export default function Search() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="col-md-12 text-center m-5">
-      <input
-        key={searchParams?.get('q')}
-        type="text"
-        name="search"
-        placeholder="Buscar proyectos..."
-        autoComplete="off"
-        defaultValue={searchParams?.get('q') || ''}
-        className="col-md-7"
-      />
-      <span className="absolute m-3 flex h-full items-center">
-      <HiOutlineSearch/></span>
-    </form>
+    <section>
+      <div className="row justify-content-center m-5">
+      <div className="col-6 align-self-center">
+      <form onSubmit={onSubmit}>
+        <input
+          key={searchParams?.get('q')}
+          type="text"
+          name="search"
+          placeholder="Buscar proyectos..."
+          autoComplete="off"
+          defaultValue={searchParams?.get('q') || ''}
+          className="col-11 p-1"
+        />
+        <span className="col-1 p-2 bg-black text-white border rounded-end">
+        <HiOutlineSearch/></span>
+      </form>
+      </div>
+      </div>
+    </section>
   );
 }

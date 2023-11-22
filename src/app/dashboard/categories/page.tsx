@@ -1,12 +1,14 @@
 import DisplayCategories from "@/components/DisplayCategories";
 import Breadcrumbs from "../components/Breadcrumbs";
+import CategoryForm from "../components/CategoryForm";
 
 
 export default function CategoryPage() {
   return (
     <section className="">
     <Breadcrumbs breadcrumbs={[
-      { label: 'Inicio', href: '/dashboard',active: true,},]}/>
+      { label: 'Inicio', href: '/dashboard',},
+      { label: 'Categorías', href: '/dashboard/categories',active: true,},]}/>
     <hr/>
     <h2>Categorías</h2>
     <div className="row">
@@ -19,7 +21,7 @@ export default function CategoryPage() {
       </div>
       <div className="offset-1 col-5 border">
         <h4>Registrar Nueva Categoría</h4>
-
+        <CategoryForm/>
       </div>
     </div>
   </section>

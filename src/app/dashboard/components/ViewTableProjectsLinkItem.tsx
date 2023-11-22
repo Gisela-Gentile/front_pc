@@ -3,8 +3,9 @@ import { useProjects } from '@/app/context/ProjectContext';
 import { Project } from '@/app/interfaces/Project'
 import { capitalize } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { FaFolder } from "react-icons/fa";
 
-export function ProjectLink({ project }:{ project: Project },) {   
+export function ViewTableProjectsLinkItem({ project }:{ project: Project },) {   
     const router = useRouter();
     const {projectsOwner, setSelectedProject} = useProjects();
 
@@ -16,10 +17,14 @@ export function ProjectLink({ project }:{ project: Project },) {
       router.push(`/dashboard/projects/${project.projectId}`)
     }
     return (        
-        <>
-          { project.projectId &&
-            <div><a onClick={handleClick}  className="">{capitalize(project.title)}</a></div>
-          }                       
-        </>
+      <>
+      { project.projectId && (
+        <tr key={project.projectId} onClick={handleClick}>
+          <td>{new Date(project.creationDate).toLocaleDateString()}</td>
+          <td><FaFolder/>{' '}{capitalize(project.title)}</td>
+          <td>{project.category && project.category.name}</td>          
+      </tr>)
+      }                       
+      </>
     )
 }

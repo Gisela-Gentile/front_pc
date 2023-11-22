@@ -1,7 +1,7 @@
 import { Collaborator } from "./Collaborator";
 import { Project } from "./Project";
 
-export type Document = {
+/*export type Document = {
   documentId: number,
   type: string,
   creationDate: string,
@@ -10,7 +10,7 @@ export type Document = {
   project: Project,
   author: Collaborator,
 }
-
+*/
 export type ItemLastDocument = {
   title:string,
   creationDate: string,
