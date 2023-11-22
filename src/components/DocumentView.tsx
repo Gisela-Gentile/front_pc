@@ -3,10 +3,8 @@ import { DocumentComplete } from "@/app/interfaces/Document";
 import styles from '@/app/page.module.css';
 import owen from '@/components/DocumentView.module.css';
 import CollaboratorAutorCard from "./CollaboratorAutorCard";
-import Breadcrumbs from "@/app/dashboard/components/Breadcrumbs";
 
 export default function DocumentView({ documentComplete }: { documentComplete: DocumentComplete }) {
-
     return (
         <article>
             <div className="row">

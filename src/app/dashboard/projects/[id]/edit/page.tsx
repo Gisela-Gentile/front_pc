@@ -19,7 +19,7 @@ export default function ProjectEditPage() {
     <section>
       <Breadcrumbs breadcrumbs={[
       { label: 'Inicio', href: '/dashboard', },
-      { label: 'Proyectos', href: '/dashboard/projects',active: true, },]}/>
+      { label: 'Proyectos', href: '/dashboard/projects',active: true,},]}/>
       <hr/>
       <ProjectForm/>      
     </section>    

@@ -1,0 +1,12 @@
+.sidebar {
+ width: 250px;
+ min-height: 700px;
+ position: absolute;
+ z-index: 10;
+ padding-top: 1rem;   
+}
+.content {
+    min-height: 700px;
+    padding-left: 260px;
+    padding-top: 1rem;   
+}

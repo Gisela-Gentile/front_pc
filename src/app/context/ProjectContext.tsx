@@ -42,7 +42,7 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
 
-  async function loadProjectsOwner() {
+  async function loadProjectsOwner():Promise<void> {
     const res = await fetch(`${API_URL}/project/my-projects`, {
       method: 'GET', 
       headers: { 

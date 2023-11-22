@@ -39,9 +39,7 @@ export default function RegisterPage() {
       }
       try {
       const res = await createUser(users);
-      console.log(res);
       const data = await res.json();
-      console.log(data);
         if (res.status === 201) {
           {/*setTimeout(() => { setMessage('Redirigiendo..')}, 5000);
           aca podria ir un cartel de redireccion!!*/}

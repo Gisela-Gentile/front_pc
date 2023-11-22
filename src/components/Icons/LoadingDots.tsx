@@ -1,4 +1,4 @@
-import styles from "./loading-dots.module.css";
+import styles from "./loadingDots.module.css";
 
 interface LoadingDotsProps {
   color?: string;

@@ -1,0 +1,6 @@
+.ol {
+    list-style: none;
+    display:flex;
+    flex-direction: row;
+    padding-top: 0.5rem;
+}

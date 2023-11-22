@@ -1,11 +1,13 @@
 "use client"
 import { useAuth } from "@/app/context/AuthContext";
-import { useRouter, } from "next/navigation";
-import { useEffect } from "react";
+import { notFound, useRouter, } from "next/navigation";
+import { Suspense, useEffect } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import EditProjectButton from "../../components/edit-project-button";
 import { useProjects } from "@/app/context/ProjectContext";
 import { ProjectView } from "../../components/ProjectView";
+import AddCollaboratorForm from "../../components/AddCollaboratorForm";
+import ProjectViewCollaborators from "../../components/ProjectViewCollaborators";
 
 export default function ProjectPage() {
   const { token, user } = useAuth();
@@ -18,19 +20,33 @@ export default function ProjectPage() {
     } 
   }, [token,user])
 
+  if (selectedProject===null) notFound;
+
   return (
       <section>
         <Breadcrumbs breadcrumbs={[{ label: 'Inicio', href: '/dashboard', },{ label: 'Proyectos', href: '/dashboard/projects',active:true }]}/>
         <hr/>
         <EditProjectButton/>
         <div className="row">
-          <div className="col-md-9"> 
+          <div className="col-md-8"> 
               {
                 selectedProject!==null ? (
-                <ProjectView project={selectedProject}/>
+                <>
+                  <ProjectView project={selectedProject}/>
+                  <Suspense>
+                    <ProjectViewCollaborators project={selectedProject}/>
+                  </Suspense>
+                </>
+                ):(<div> Contenido no disponible</div>)
+              }             
+          </div>
+          <div className="col-md-4"> 
+              {
+                selectedProject!==null ? (
+                  <AddCollaboratorForm/>                
                 ):''
               }              
-            </div>
+          </div>
           </div>
       </section>
   );

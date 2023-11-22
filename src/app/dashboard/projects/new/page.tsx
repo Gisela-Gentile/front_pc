@@ -17,7 +17,9 @@ export default function NewProjectPage() {
         
     return (
         <section>
-          <Breadcrumbs breadcrumbs={[{ label: 'Inicio', href: '/dashboard', },{ label: 'Proyectos', href: '/dashboard/projects',active:true }]}/>
+          <Breadcrumbs breadcrumbs={[
+            { label: 'Inicio', href: '/dashboard',},
+            { label: 'Proyectos', href: '/dashboard/projects',active:true }]}/>
           <hr/>
           <ProjectForm/>            
         </section>
