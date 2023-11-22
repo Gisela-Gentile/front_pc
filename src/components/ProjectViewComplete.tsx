@@ -4,15 +4,14 @@ import ListCollaboratorsProject from "./ListColaboratorsProject";
 import ListDocumentsProject from "./ListDocumentsProject";
 import Link from "next/link";
 import styles from '@/app/page.module.css';
-import owen from '@/components/ProjectView.module.css';
+import owen from '@/components/ProjectViewComplete.module.css';
 
-export default function ProjectView({ projectComplete }: { projectComplete: ProjectComplete }) {
+export default function ProjectViewComplete({ projectComplete }: { projectComplete: ProjectComplete }) {
     const {project, collaborators,documents} = projectComplete;
     return (
-        <div className="container py-3">
-            <div className="offset-md-2 col-md-8">
+            <article>                
                 <div className="row">
-                    <div className="col-12 page-title py-5 mt-5">
+                    <div className="col-12 page-title py-5">
                         <h1 className={styles.title}>{project.title}</h1>
                     </div>
                     <div className="col-12">
@@ -61,13 +60,13 @@ export default function ProjectView({ projectComplete }: { projectComplete: Proj
                             <p>{project.category.name}</p>
                         </div>
                     }
-                </div>
+                    </div>
                 </div>    
                 <div className="col-12 my-4">
                     <h5>Colaboradores del Proyecto</h5>
                     {
                         projectComplete.collaborators.length > 0 ? (
-                        <ListCollaboratorsProject listCollaborators={projectComplete.collaborators} />
+                        <ListCollaboratorsProject listCollaborators={collaborators} />
                         ) :
                         <p>No posee colaboradores en la actualidad.</p>
                     }
@@ -76,13 +75,11 @@ export default function ProjectView({ projectComplete }: { projectComplete: Proj
                     <h5>Documentos incluidos en el Proyecto</h5>
                     {
                         projectComplete.documents.length > 0 ? (
-                        <ListDocumentsProject listDocuments={projectComplete.documents} />
+                        <ListDocumentsProject listDocuments={documents} />
                         ) :
                         <p>No posee documentos en la actualidad.</p>
                     }
-                </div>
-                
-            </div>
-        </div>
-    )
+                </div>                
+            </article>
+        );
 }

@@ -16,13 +16,10 @@ export default function RegisterPage() {
         body: JSON.stringify(users),
         headers: { "Content-Type": "application/json", },
       });
-      {/*const data = await res.json();
-      console.log(data);  
-    return data   */ }
     return res
   }
 
-  const handleSubmit = async (event: React.SyntheticEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setError(false);
     setMessage('');
     console.log(formData);
@@ -63,11 +60,8 @@ export default function RegisterPage() {
       
     } 
   }
-
-
-  
   return (
-    <>
+    <div className="container" style={{['minHeight' as any]:"700px" }}>
       <section className="p-5 m-5">
       <div className="rounded border text-center col-xs-12 offset-md-3 col-md-6  p-5 bg-sesion">
         <div className="row align-items-center">
@@ -153,6 +147,6 @@ export default function RegisterPage() {
         </div>
       </div>
       </section>
-    </>
+    </div>
   )
 }

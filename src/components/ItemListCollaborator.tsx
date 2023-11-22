@@ -6,7 +6,7 @@ export default function ItemListCollaborator({collaborator}:{collaborator:Collab
   
   return (
     <>
-      <span>{user.username } - {user.email} - <Link href={`/perfil/${user.userId}`}>Ver perfil publico</Link> </span>
+      <Link href={`/perfil/${user.userId}`} title='Ver perfil publico'><span>{user.username }</span></Link> 
     </>
   )
 }

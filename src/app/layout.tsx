@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from './context/AuthContext';
 import HeaderPrincipal from '@/components/HeaderPrincipal';
-import { Container } from 'react-bootstrap';
 import FooterPrincipal from '@/components/FooterPrincipal';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,10 +22,8 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
       </head>
       <body>        
         <AuthProvider>
-          <HeaderPrincipal/>
-           <div className="container">          
-            {children}            
-          </div>
+          <HeaderPrincipal/>           
+            {children}               
           </AuthProvider>
         <FooterPrincipal/>        
       </body>

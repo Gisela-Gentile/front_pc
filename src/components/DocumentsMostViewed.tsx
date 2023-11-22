@@ -4,7 +4,7 @@ import { API_URL } from '@/config/constants';
 import { DocumentCard } from './DocumentCard';
 
 async function fetchDocuments():Promise<DocumentComplete[]> {
-  const res = await fetch(`${API_URL}/document/most-viewed`);
+  const res = await fetch(`${API_URL}/document/most-viewed`,{cache: 'no-store'});
   const data = await res.json();
   return data;
 }

@@ -1,0 +1,11 @@
+.items {
+    display: flex;
+    height: 48px;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #ccc;
+}
+.items:hover{
+color:aquamarine;
+}
+    
