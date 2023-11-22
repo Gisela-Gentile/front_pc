@@ -1,0 +1,11 @@
+.title {
+    color:#2E3E50;
+    display: inline-block;
+}
+.content { display: contents;}
+
+.title::first-letter,
+.description::first-letter ,
+.category::first-letter {
+    text-transform: uppercase;
+}
