@@ -18,15 +18,17 @@ export default async function UsuarioProjectsCollaborator({id}:{id: number}) {
     <section>
       <div className="container">
         <div className="row">
-          <div className="col-md-12"><h3>Proyectos donde colabora</h3></div>
+          <div className="col-md-12"><h2 className="text-center text-primary pb-3 pt-3" >Proyectos donde colabora</h2></div>
         </div>
         <div className="row">
-        {   projects.map((project:Project) => (
-                <div className='col-md-4' key={project.projectId}>
+        { projects.length > 0 ? ( 
+         projects.map((project:Project) => (
+                <div className='col-md-4 p-2' key={project.projectId}>
                   <ProjectCard project={project} />
                 </div>
                 )
-              )
+              )):
+              (<div className='col-md-12'>No colabora en Proyectos en la actualidad.</div>)
         }
         </div>        
         
