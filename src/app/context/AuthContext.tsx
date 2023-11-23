@@ -25,35 +25,32 @@ export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   const [user, setUser] = useState(null);
   
   async function loadUser(newToken: string) {
-    const res = await fetch(`${API_URL}/auth/profile`,{ method: 'GET',  headers: {'Authorization': `Bearer ${newToken}`}});
-    /*console.log(res);*/
+    const res = await fetch(`${API_URL}/auth/profile`,
+      { method: 'GET',  
+        headers: {'Authorization': `Bearer ${newToken}`}
+      }
+    );
     const data = await res.json();
-    /*console.log(data);*/
     setUser(data.user);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    /*localStorage.setItem('user', JSON.stringify(data.user));*/
   }
 
   const selectToken = ( newToken: string) => {
     setToken(newToken);
     loadUser(newToken);
-    localStorage.setItem('token', newToken);
+    /*localStorage.setItem('token', newToken);*/
   };
 
   const signOut = () => {
     // Limpiar el token y cualquier otro estado relacionado con la sesión al hacer logout
     setToken('');
     setUser(null);
-    console.log("logout");
-    localStorage.removeItem('token');
+    /*console.log("logout");*/
+    /*localStorage.removeItem('token');*/
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      token,
-      user,
-      selectToken,
-      signOut
-       }}>
+    <AuthContext.Provider value={{token, user, selectToken, signOut }}>
       {children}
     </AuthContext.Provider>
   )

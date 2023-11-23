@@ -1,19 +1,20 @@
 "use client";
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from "@/config/constants";
-import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect, } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from '@/app/context/AuthContext';
 import { useProjects } from '@/app/context/ProjectContext';
 
 export default function AddCollaboratorForm() {
-    const router = useRouter();
+    const router = useRouter();    
     const { token } = useAuth();
     const [email, setEmail] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const { selectedProject} = useProjects();    
-
+    const { projectsOwner,selectedProject} = useProjects();    
+    
+  
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,9 +29,9 @@ export default function AddCollaboratorForm() {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            console.log(res);
+            {/*console.log(res);*/}
             const data = await res.json();
-            console.log(` esto es data: ${data}`);
+            {/*console.log(` esto es data: ${data}`);*/}
             
             switch (res.status) {
                 case 201:
@@ -99,6 +100,6 @@ export default function AddCollaboratorForm() {
                 </div>
             </form>
             <ToastContainer />
-        </section >
+        </section>
     );
 }
