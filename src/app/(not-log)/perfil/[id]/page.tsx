@@ -5,10 +5,20 @@ import UsuarioProjectsOwner from "@/components/UsuarioProjectsOwner";
 export default function PerfilPage({ params: { id }, }: { params: { id: string } }) {
   
   return (
-    <>     
-      <UsuarioComplete id={Number(id)} /> 
-      <UsuarioProjectsOwner id={Number(id)} />   
-      <UsuarioProjectsCollaborator id={Number(id)} />
-    </>
+
+    
+    <div className="p-2">
+      <div className=" d-grid gap-3 m-2">
+        <div className="p-2 bg-light border ">
+          <UsuarioComplete id={Number(id)} />
+        </div>
+      </div>
+      <div className="">
+        <UsuarioProjectsOwner id={Number(id)} />
+      </div>
+      <div>
+        <UsuarioProjectsCollaborator id={Number(id)} />
+      </div>
+    </div>
   )
 }

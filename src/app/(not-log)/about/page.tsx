@@ -1,3 +1,5 @@
+import { FcCheckmark } from "react-icons/fc";
+import style from '@/app/(not-log)/docs/Docs.module.css'
 export default function AboutPage() {
   return (
     <div>
@@ -15,12 +17,12 @@ export default function AboutPage() {
 ​
     <h2>Características Destacadas:</h2>
 ​
-    <ul>
-        <li><strong>Categorización Eficiente:</strong> Todos los proyectos están cuidadosamente categorizados para que puedas explorar fácilmente aquellos que te interesan.</li>
-        <li><strong>Edición Colaborativa:</strong> Los documentos de cada proyecto pueden ser editados por varios usuarios registrados designados para esta tarea, fomentando la colaboración y la mejora continua.</li>
-        <li><strong>Potente Buscador:</strong> Nuestro buscador general te permite encontrar rápidamente proyectos relevantes, facilitando la navegación y la conexión con ideas afines.</li>
-        <li><strong>Secciones Especiales:</strong> Descubre los proyectos más vistos, los más recientes y otras secciones destacadas que te ayudarán a encontrar contenido emocionante y relevante.</li>
-        <li><strong>Comentarios Abiertos:</strong> Creemos en la importancia de la retroalimentación. Cualquier usuario puede dejar comentarios en los documentos, proporcionando a los autores una valiosa perspectiva y enriqueciendo la experiencia de la comunidad.</li>
+    <ul className={style.lista}>
+        <li><FcCheckmark /><strong>Categorización Eficiente:</strong> Todos los proyectos están cuidadosamente categorizados para que puedas explorar fácilmente aquellos que te interesan.</li>
+        <li><FcCheckmark /><strong>Edición Colaborativa:</strong> Los documentos de cada proyecto pueden ser editados por varios usuarios registrados designados para esta tarea, fomentando la colaboración y la mejora continua.</li>
+        <li><FcCheckmark /><strong>Potente Buscador:</strong> Nuestro buscador general te permite encontrar rápidamente proyectos relevantes, facilitando la navegación y la conexión con ideas afines.</li>
+        <li><FcCheckmark /><strong>Secciones Especiales:</strong> Descubre los proyectos más vistos, los más recientes y otras secciones destacadas que te ayudarán a encontrar contenido emocionante y relevante.</li>
+        <li><FcCheckmark /><strong>Comentarios Abiertos:</strong> Creemos en la importancia de la retroalimentación. Cualquier usuario puede dejar comentarios en los documentos, proporcionando a los autores una valiosa perspectiva y enriqueciendo la experiencia de la comunidad.</li>
     </ul>
 ​
     <h2>Únete a Nuestra Comunidad</h2>

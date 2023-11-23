@@ -15,10 +15,12 @@ export default async function UsuarioProjectsOwner({id}:{id: number}) {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h3>Proyectos Propios</h3>
+            <h2 className="text-center text-primary pb-3 pt-3">Proyectos Propios</h2>
+            </div>
+            <div className="row">
             { projects.length > 0 ? (
               projects.map((project:Project) => (
-              <div className='col-md-4' key={project.projectId}>
+              <div className='col-md-4 p-2' key={project.projectId}>
                   <ProjectCard project={project} />
               </div>))):
               (<div className='col-md-12'>No registra Proyectos en la actualidad.</div>)
