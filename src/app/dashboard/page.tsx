@@ -11,10 +11,13 @@ import ViewListProjects from "./components/ViewListProjects";
 export default function DashboardPage() {
   const { token, user } = useAuth();
   const router = useRouter();
-  const {projectsOwner,projectsCollaborator,loadProjectsOwner,loadProjectsCollaborator } = useProjects();
+  const { projectsOwner,
+          projectsCollaborator,
+          loadProjectsOwner,
+          loadProjectsCollaborator
+  } = useProjects();
 
 useEffect(() => {
-  console.log('recargo dashboard')  
   if (!user) {    
     router.push('/')
   }    

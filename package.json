@@ -13,6 +13,7 @@
     "next": "13.5.4",
     "react": "^18",
     "react-bootstrap": "^2.9.1",
+    "react-confirm": "^0.3.0-7",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-toastify": "^9.1.3"
