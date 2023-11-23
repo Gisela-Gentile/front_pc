@@ -1,7 +1,14 @@
 import { Collaborator } from "./Collaborator";
 import { Project } from "./Project";
 
-/*export type Document = {
+export type CreateDocument = {
+  title: string,
+  content: string,
+  messageLog:string
+}
+export type UpdateDocument = CreateDocument;
+
+export type Document = {
   documentId: number,
   type: string,
   creationDate: string,
@@ -10,7 +17,9 @@ import { Project } from "./Project";
   project: Project,
   author: Collaborator,
 }
-*/
+
+
+
 export type ItemLastDocument = {
   title:string,
   creationDate: string,
