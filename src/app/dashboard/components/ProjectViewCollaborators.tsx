@@ -24,11 +24,11 @@ export default async function ProjectViewCollaborators({ project }:{ project: Pr
       <h4>Colaboradores</h4>  
       <table className='table'>
       <tbody>
-        { list.length > 0 && (
+        { list.length > 0 ? (
           list.map((collaborator:Collaborator) => (
           <tr className='m-2' key={collaborator.collaboratorId}>
             <td>{collaborator.user && collaborator.user.username}</td>
-          </tr>)))
+          </tr>))):(<div>No posee en la actualidad.</div>)
         }
         </tbody>  
       </table>

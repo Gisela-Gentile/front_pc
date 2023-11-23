@@ -2,18 +2,17 @@
 
 import { createContext, useState, useContext } from "react";
 import { CreateDocument, UpdateDocument, Document } from "@/app/interfaces/Document";
+import { useAuth } from "./AuthContext";
+import { useProjects } from "./ProjectContext";
+import { API_URL } from "@/config/constants";
 
 export const DocumentContext = createContext<{
-  documents: Document[];
-  loadDocuments: () => Promise<void>;
-  createDocument: (Document: CreateDocument) => Promise<void>;
-  deleteDocument: (id: number) => Promise<void>;
+  createDocument: (Document: CreateDocument) => Promise<any>;
+  deleteDocument: (id: number) => Promise<any>;
   selectedDocument: Document | null;
   setSelectedDocument: (document: Document | null) => void;
-  updateDocument: (id: number, document: UpdateDocument) => Promise<void>;
+  updateDocument: (id: number, document: UpdateDocument) => Promise<any>;
 }>({
-  documents: [],
-  loadDocuments: async () => {},
   createDocument: async (document: CreateDocument) => {},
   deleteDocument: async (id: number) => {},
   selectedDocument: null,
@@ -21,7 +20,7 @@ export const DocumentContext = createContext<{
   updateDocument: async (id: number, document: UpdateDocument) => {},
 });
 
-export const useDocuments = () => {
+export const useDocument = () => {
   const context = useContext(DocumentContext);
   if (!context) {
     throw new Error("useDocuments must be used within a DocumentsProvider");
@@ -29,38 +28,53 @@ export const useDocuments = () => {
   return context;
 };
 
-export const DocumentsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [Documents, setDocuments] = useState<Document[]>([]);
+export const DocumentProvider = ({ children }: { children: React.ReactNode }) => {
+  const { token } = useAuth();
+  const { selectedProject} = useProjects();
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
 
-  async function loadDocuments() {
+  {/*async function loadDocuments() {
     const res = await fetch("/api/Documents");
     const data = await res.json();
     setDocuments(data);
-  }
+  }*/}
 
   async function createDocument(document: CreateDocument) {
-    const res = await fetch("/api/documents", {
-      method: "POST",
-      body: JSON.stringify(document),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const newDocument = await res.json();
-    setDocuments([...documents, newDocument]);
+    try {
+        console.log(selectedProject?.projectId);
+        const response = await fetch(`${API_URL}/project/${selectedProject?.projectId}/add/document`,{
+          method: "POST",
+          body: JSON.stringify(document),
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization':`Bearer ${token}`,
+          },
+        });
+        console.log(response.status);
+        return response.status  
+    } catch(error:any){
+      return error        
+    }
   }
 
   async function deleteDocument(id: number) {
-    const res = await fetch("/api/Documents/" + id, {
-      method: "DELETE",
-    });
-    const data = await res.json();
-    setDocuments(documents.filter((document) => document.id !== id));
+    try {
+      const response = await fetch(`${API_URL}/Documents/id`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':`Bearer ${token}`,
+        },
+      });
+    return response.status
+    } catch (error: any){
+       return { error };  
+    }
+    {/*setDocuments(documents.filter((document) => document.id !== id));*/}
   }
 
   async function updateDocument(id: number, document: UpdateDocument) {
-    const res = await fetch("/api/Documents/" + id, {
+    const res = await fetch("Documents/" + id, {
       method: "PUT",
       body: JSON.stringify(document),
       headers: {
@@ -68,14 +82,12 @@ export const DocumentsProvider = ({ children }: { children: React.ReactNode }) =
       },
     });
     const data = await res.json();
-    setDocuments(documents.map((document) => (document.id === id ? data : document)));
+    {/*setDocuments(documents.map((document) => (document.id === id ? data : document)));*/}
   }
 
   return (
     <DocumentContext.Provider
       value={{
-        documents,
-        loadDocuments,
         createDocument,
         deleteDocument,
         selectedDocument,

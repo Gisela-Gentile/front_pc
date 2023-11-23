@@ -10,6 +10,8 @@ import AddCollaboratorForm from "../../components/AddCollaboratorForm";
 import ProjectViewCollaborators from "../../components/ProjectViewCollaborators";
 import DeleteProjectButton from "../../components/delete-project-button";
 import LoadingDots from "@/components/Icons/LoadingDots";
+import ProjectViewDocuments from "../../components/ProjectViewDocuments";
+import CreateDocumentButton from "../../components/create-document-button";
 
 export default function ProjectPage() {
   const { user } = useAuth();
@@ -43,6 +45,7 @@ export default function ProjectPage() {
         <hr/>
         { owner && <EditProjectButton/>}
         { owner && <DeleteProjectButton/>}
+        <CreateDocumentButton/>
         <div className="row">
           <div className="col-md-8"> 
             { selectedProject!==null && (
@@ -50,6 +53,9 @@ export default function ProjectPage() {
               <ProjectView project={selectedProject}/>
               <Suspense fallback={<LoadingDots/>}>
                 <ProjectViewCollaborators project={selectedProject}/>
+              </Suspense>
+              <Suspense fallback={<LoadingDots/>}>
+                <ProjectViewDocuments project={selectedProject}/>
               </Suspense>
               </>)
             }
