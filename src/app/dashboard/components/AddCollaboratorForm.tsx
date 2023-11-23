@@ -75,7 +75,6 @@ export default function AddCollaboratorForm() {
                     <input
                         type="email"
                         autoComplete='off'
-                        autoFocus
                         className="form-control"
                         id="email"
                         name="email"
