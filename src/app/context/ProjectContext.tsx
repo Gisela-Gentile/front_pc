@@ -47,7 +47,9 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
       method: 'GET', 
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization':`Bearer ${token}`,},});
+        'Authorization':`Bearer ${token}`,},
+      }
+    );
     const data = await res.json();
     setProjectsOwner(data.data);
   }
@@ -83,12 +85,21 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
   }
  
 
-  async function deleteProject(id: number) {
-    const res = await fetch(`${API_URL}/project/` + id, {
-      method: "DELETE",
-    });
-    const data = await res.json();
-    setProjectsOwner(projectsOwner.filter((project) => project.projectId !== id));
+  async function deleteProject(id: number):Promise<any> {
+    try {
+        const response = await fetch(`${API_URL}/project/${id}/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':`Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setProjectsOwner(projectsOwner.filter((project) => project.projectId !== id));
+      return response.status
+    } catch (error: any){
+       return { error };  
+    }
   }
 
   async function updateProject(id: number, project: UpdateProject):Promise<any> {
@@ -101,9 +112,7 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
           'Authorization':`Bearer ${token}`,
         },
       });
-      console.log(`Este es response adentro de operacion: ${response}`);
       const data = await response.json();
-      console.log(`Este es data: ${data}`);
       setProjectsOwner(
         projectsOwner.map((project) => (
           project.projectId === id ? data.projectChanged : project)
@@ -116,8 +125,7 @@ export const ProjectsProvider = ({ children }: { children: React.ReactNode }) =>
   }
 
   return (
-    <ProjectContext.Provider
-      value={{
+    <ProjectContext.Provider value= {{
         projectsOwner,
         projectsCollaborator,
         loadProjectsOwner,
