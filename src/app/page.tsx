@@ -1,6 +1,7 @@
-import DisplayCategories from "@/components/DisplayCategories"
+//import DisplayCategories from "@/components/DisplayCategories"
 import DocumentsMostViewed from "@/components/DocumentsMostViewed"
 import LoadingDots from "@/components/Icons/LoadingDots"
+import ListCategories from "@/components/ListCategoryCard"
 import Presentation from "@/components/Presentation"
 import ProjectsMostViewed from "@/components/ProjectsMostViewed"
 import Search from "@/components/Search"
@@ -18,7 +19,7 @@ export default function Home() {
       <section className="p-4">
         <div>
         <h2 className="py-4">Categorías</h2>
-        <DisplayCategories format={'list-button'}/>  
+        <ListCategories/>  
         </div>
       </section>
       <Suspense fallback={<LoadingDots color="#000"/>}>
