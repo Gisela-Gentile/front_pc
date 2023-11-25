@@ -11,19 +11,15 @@ export function ViewTableDocumentsLinkItem({ itemLastDocument }:{ itemLastDocume
     const {selectedProject} = useProjects();
 
     function handleClick(){
-      router.push(`/dashboard/projects/${selectedProject?.projectId}/document/${itemLastDocument.documentId}`)
+      router.push(`/dashboard/projects/${selectedProject?.projectId}/document/${itemLastDocument.documentId}/view`)
     }
     return (        
-      <>
-      { itemLastDocument.documentId && (  
-        <tr key={itemLastDocument.documentId} onClick={handleClick}>
+        <tr onClick={handleClick}>
           <td><FaFile/>{' '}{capitalize(itemLastDocument.title)}</td>
           <td>{new Date(itemLastDocument.creationDate).toLocaleDateString()}</td>
           <td><CollaboratorAutorCard id={itemLastDocument.authorColDocument} /></td>
           <td>{new Date(itemLastDocument.creationDateHistory).toLocaleDateString()}</td>
           <td><CollaboratorAutorCard id={itemLastDocument.authorColHistory} /></td>        
-      </tr>)
-      }                       
-      </>
+      </tr>
     )
 }

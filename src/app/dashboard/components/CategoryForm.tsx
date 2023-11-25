@@ -54,7 +54,7 @@ export default function CategoryForm() {
 
     return (
         <section>
-            <form onSubmit={handleSubmit} className='col-9 border border-2 border-primary p-2'>
+            <form onSubmit={handleSubmit} className='col-9 p-2'>
                 <div className="form-group text-start mb-3">
                     <label className="form-label mt-4" htmlFor="title">Nombre de la Categoria<sup aria-hidden="true">*</sup></label>
                     <input

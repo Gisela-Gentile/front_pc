@@ -1,4 +1,3 @@
-//import DisplayCategories from "@/components/DisplayCategories"
 import DocumentsMostViewed from "@/components/DocumentsMostViewed"
 import LoadingDots from "@/components/Icons/LoadingDots"
 import ListCategories from "@/components/ListCategoryCard"
@@ -13,7 +12,7 @@ export default function Home() {
     <div className="container">
       <Presentation/>
       <Search />
-      <Suspense fallback={<LoadingDots color="#000"/>}>
+      <Suspense fallback={<LoadingDots />}>
         <ProjectsMostViewed />
       </Suspense>
       <section className="p-4">
@@ -22,7 +21,7 @@ export default function Home() {
         <ListCategories/>  
         </div>
       </section>
-      <Suspense fallback={<LoadingDots color="#000"/>}>
+      <Suspense fallback={<LoadingDots />}>
         <DocumentsMostViewed />
       </Suspense>
     </div>

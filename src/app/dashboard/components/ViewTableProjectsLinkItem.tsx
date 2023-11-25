@@ -17,14 +17,10 @@ export function ViewTableProjectsLinkItem({ project }:{ project: Project },) {
       router.push(`/dashboard/projects/${project.projectId}`)
     }
     return (        
-      <>
-      { project.projectId && (
-        <tr key={project.projectId} onClick={handleClick}>
+      <tr onClick={handleClick}>
           <td>{new Date(project.creationDate).toLocaleDateString()}</td>
           <td><FaFolder/>{' '}{capitalize(project.title)}</td>
           <td>{project.category && project.category.name}</td>          
-      </tr>)
-      }                       
-      </>
+      </tr>
     )
 }

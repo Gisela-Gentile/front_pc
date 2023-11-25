@@ -12,35 +12,24 @@ export default function LoginPage() {
     const [formData, setFormData] = useState({ email: '', password: '', });
 
     async function fetchUser(email: string, password: string) {
-        const res = await fetch(`${API_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
-        const data = await res.json();
-        if (res.status === 201) {
-            selectToken(data.data.access_token);
-            return data;
-            {/*const response = NextResponse.json({data,});
-            response.cookies.set({
-                name: "myTokenName",
-                value: data.data.access_token,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                maxAge: 1000 * 60 * 60 * 24 * 30,
-                path: "/",
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
             });
-            console.log("Este es response antes de salir");
-            
-            router.push("/dashboard");
-            return response;*/}
-        } else {
-            setMessage('Credenciales invalidas');
-            return NextResponse.json({ message: "Credenciales invalidas", }, { status: 401, });
+            const data = await response.json();
+            if (response.status === 201) {
+                selectToken(data.data.access_token);
+            return data;           
+            } else {
+                setMessage('Credenciales invalidas');
+                return NextResponse.json({ message: "Credenciales invalidas", }, { status: 401, });
+            }
+        } catch (error){
+            return error
         }
     }
-
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
