@@ -3,8 +3,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useProjects } from "@/app/context/ProjectContext";
 import { API_URL } from "@/config/constants";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect, } from "react";
+import { useState, useRef, useEffect, Suspense, } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import LoadingDots from '@/components/Icons/LoadingDots';
 
 async function fetchCategories() {
     const res = await fetch(`${API_URL}/category/view/all`);
@@ -36,13 +37,14 @@ export default function ProjectForm() {
     }, []);
     
     useEffect(() => {
-        console.log(`Este es selected cuando entra: ${selectedProject}`);
         if (selectedProject) {
             setTitle(selectedProject.title);
             setDescription(selectedProject.description || "");
             setCategory(selectedProject.category?.name || "");
         }
     }, [selectedProject]);
+
+    
    
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -52,15 +54,15 @@ export default function ProjectForm() {
               const response = await updateProject(selectedProject.projectId,{title, description,category})
               switch (response){
                     case 200:
-                        setSelectedProject(null);
-                        setTitle("");
+                        toast.success('Proyecto actualizado con éxito', {position:'top-right',   autoClose: 1500,pauseOnHover: false,});    
+                        {/*setTitle("");
                         setDescription("");
-                        setCategory("");
-                        toast.success('Proyecto actualizado con éxito', {position:'top-right',   autoClose: 2000,pauseOnHover: false,});
+                        setCategory("");*/}
                         setTimeout(() => {
                             router.push('/dashboard/projects');
-                        }, 2500);
+                        }, 2000);
                         setIsSubmitted(true);
+                        setSelectedProject(null);
                         break;  
                     default :
                         toast.error(`Algo salio mal`, { position: 'bottom-right', autoClose: 3000, });
@@ -86,14 +88,14 @@ export default function ProjectForm() {
                         toast.warning(`Ya cuenta con un proyecto con el mismo nombre. Operacion invalida`, { position: 'top-right', autoClose: 3000, });
                         break;
                     default :
-                        toast.error(`Algo salio mal`, { position: 'bottom-right', autoClose: 3000, });
+                        toast.error(`Algo salio mal`, { position: 'bottom-right', autoClose: 2000, });
                         break;
                 }
             }
         } catch (error) {
-            toast.error('Error al crear Proyecto', {position: 'bottom-right',autoClose: 3000,
+            toast.error('Error al crear Proyecto', {position: 'bottom-right',autoClose: 2000,
             });
-            setIsSubmitted(false); 
+            setIsSubmitted(false);
             router.push('/dashboard/projects');
         }
         finally {
@@ -103,7 +105,22 @@ export default function ProjectForm() {
                  
     return (
         <section>
-            {isSubmitted ? ( <p>¡Proyecto registrado exitosamente</p>) : 
+            {isSubmitted ? (
+                <>
+                {
+                    (selectedProject===null) ? (
+                    <div>
+                        <p>¡Proyecto registrado exitosamente!</p>                        
+                    </div>): (
+                    <div>
+                        <p>Proyecto actualizado!!!</p>
+                    </div>
+                    )
+                }
+                
+                <LoadingDots />
+
+                </>) :                
                 (<>
                 {
                 (selectedProject===null) ? (
@@ -112,7 +129,7 @@ export default function ProjectForm() {
                     <p> Complete los campos para poder crear el proyecto.</p>
                 </div>):(
                 <div>
-                    <h2>Actulización de Proyecto </h2>
+                    <h2>Actulización del Proyecto </h2>
                     <p> Modifique los campos que desea cambiar y oprima el boton Actualizar para guardar los cambios.</p>
                 </div>
                 )
@@ -133,7 +150,7 @@ export default function ProjectForm() {
                             ref={titleRef}
                         />
                     </div>
-                    <div className="form-group mb-3 text-start">
+                    <div className="form-group text-start mb-3">
                         <label 
                             className="form-label" htmlFor="category">Categoría<sup aria-hidden="true">*</sup>
                         </label>                    
@@ -192,10 +209,10 @@ export default function ProjectForm() {
                             </button>
                         )}
                     </div>                    
-                </form>
-                <ToastContainer />
+                </form>                
                 </>)
-            }            
+            }
+            <ToastContainer />  
         </section>
     );
 }

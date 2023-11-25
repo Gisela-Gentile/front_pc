@@ -16,28 +16,26 @@ export default function ViewTableDocuments({title,ancho,list,cantidad,msgResult,
   return (
     <section>
       <div className={`col-${ancho}`}>
-      <h3>{title}</h3>  
-      <table className='table table-bordered table-hover'>
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Fecha de Creación</th>
-            <th>Autor</th>            
-            <th>fecha de Revisión</th>
-            <th>Autor de Revision</th>            
-          </tr>
-        </thead>
-        <tbody>      
-        {  (list.length > 0) && list.slice(0,tope).map((itemLastDocument:ItemLastDocument) => (
-            <ViewTableDocumentsLinkItem itemLastDocument={itemLastDocument} />
-          ))
-        }
-        {/*{ viewMore && list.length > cantidad && (
-        <tr key={list.length+1}><td colSpan={3}><Link href="/dashboard/projects">Ver más...</Link> </td></tr>)
-        }*/}
-      </tbody>
-      </table>
-      { (list.length === 0) && (<div className='col-12'>{msgResult}</div>) }
+      <h4>{title}</h4>  
+      {  (list.length > 0) ? (
+        <table className='table table-bordered table-hover'>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Fecha de Creación</th>
+              <th>Autor</th>            
+              <th>fecha de Revisión</th>
+              <th>Autor de Revisión</th>            
+            </tr>
+          </thead>
+          <tbody>      
+          { list.slice(0,tope).map((itemLastDocument:ItemLastDocument) => (
+              <ViewTableDocumentsLinkItem key={itemLastDocument.documentId} itemLastDocument={itemLastDocument} />
+            ))
+          }
+          </tbody>
+        </table>):(<div className='col-12'>{msgResult}</div>) 
+      }
       </div>
     </section>
   )

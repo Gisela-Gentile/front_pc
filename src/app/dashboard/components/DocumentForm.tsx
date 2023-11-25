@@ -85,13 +85,13 @@ export default function DocumentForm() {
             {isSubmitted ? ( <p>¡Proyecto registrado exitosamente</p>) : 
                 (<>
                 {
-                (selectedProject===null) ? (
+                (selectedDocument===null) ? (
                 <div>
-                    <h2>Proyecto Nuevo</h2>
-                    <p> Complete los campos para poder crear el proyecto.</p>
+                    <h2>Documento Nuevo</h2>
+                    <p> Complete los campos para poder crear el documento.</p>
                 </div>):(
                 <div>
-                    <h2>Actulización de Proyecto </h2>
+                    <h2>Actulización de Documento </h2>
                     <p> Modifique los campos que desea cambiar y oprima el boton Actualizar para guardar los cambios.</p>
                 </div>
                 )
@@ -150,10 +150,10 @@ export default function DocumentForm() {
                             disabled={!title || !content}
                             type="submit"
                         >
-                            {selectedProject ? "Actualizar" : "Crear"}
+                            {selectedDocument ? "Actualizar" : "Crear"}
                         </button>
 
-                        {selectedProject && (
+                        {selectedDocument && (
                             <button
                                 className="px-5 py-2 text-black bg-slate-400 hover:bg-slate-500 rounded-md"
                                 type="button"

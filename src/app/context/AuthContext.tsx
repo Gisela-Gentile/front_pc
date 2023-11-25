@@ -9,7 +9,11 @@ export const AuthContext = createContext<{
   user: User | null;
   selectToken: (newToken: string) => void; 
   signOut: () => void;
-}>({ token:'', user: null, selectToken: (newToken: string) => {},  signOut: () => {}});
+}>({  token:'',
+      user: null,
+      selectToken: (newToken: string) => {},
+      signOut: () => {}}
+  );
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -25,7 +29,8 @@ export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
   const [user, setUser] = useState(null);
   
   async function loadUser(newToken: string) {
-    const res = await fetch(`${API_URL}/auth/profile`,
+    try {
+      const res = await fetch(`${API_URL}/auth/profile`,
       { method: 'GET',  
         headers: {'Authorization': `Bearer ${newToken}`}
       }
@@ -33,6 +38,10 @@ export const AuthProvider = ({ children }:{ children: React.ReactNode }) => {
     const data = await res.json();
     setUser(data.user);
     /*localStorage.setItem('user', JSON.stringify(data.user));*/
+    }catch (e){
+      console.log("error",e)
+    }
+
   }
 
   const selectToken = ( newToken: string) => {

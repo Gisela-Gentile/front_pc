@@ -12,6 +12,7 @@ import DeleteProjectButton from "../../components/delete-project-button";
 import LoadingDots from "@/components/Icons/LoadingDots";
 import ProjectViewDocuments from "../../components/ProjectViewDocuments";
 import CreateDocumentButton from "../../components/create-document-button";
+import { capitalize } from "@/lib/utils";
 
 export default function ProjectPage() {
   const { user } = useAuth();
@@ -19,20 +20,23 @@ export default function ProjectPage() {
   const {id} = useParams();
   const {projectsOwner,selectedProject} = useProjects();    
   const [owner, setOwner] = useState(false);
-  
+  const [titulo, setTitulo]= useState("");
+  const [refProject, setRefProject]= useState<number>();
   useEffect(() => {
     if (!user) {
       router.push('/')
     } 
   }, [user])
  
-    
+  
   useEffect(()=>{
       if (selectedProject!==null){
           const finded = projectsOwner.find((project) => (project.projectId === Number(id)));
           {/* si tengo selected project pero finded da undefined es pq no es owner*/}
           setOwner(finded!==undefined);
-          
+          setTitulo(capitalize(selectedProject?.title));
+          setRefProject(selectedProject?.projectId);
+
       }else {
         notFound;
       }
@@ -41,7 +45,10 @@ export default function ProjectPage() {
 
   return (
       <section>
-        <Breadcrumbs breadcrumbs={[{ label: 'Inicio', href: '/dashboard', },{ label: 'Proyectos', href: '/dashboard/projects',active:true }]}/>
+        <Breadcrumbs breadcrumbs={[
+          { label: 'Inicio', href: '/dashboard',},
+          { label: 'Proyectos', href: '/dashboard/projects',},
+          { label: `${titulo}`, href: `/dashboard/projects/${refProject}`,active:true }]}/>          
         <hr/>
         { owner && <EditProjectButton/>}
         { owner && <DeleteProjectButton/>}
