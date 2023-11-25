@@ -2,6 +2,7 @@ import { useAuth } from "@/app/context/AuthContext";
 import { Collaborator } from "@/app/interfaces/Collaborator";
 import { Project } from "@/app/interfaces/Project";
 import { API_URL } from "@/config/constants";
+import DeleteCollaboratorButton from "./delete-collaborator-button";
 
 
 async function fetchCollaborartors(id:number):Promise<Collaborator[]> {
@@ -22,16 +23,19 @@ export default async function ProjectViewCollaborators({ project }:{ project: Pr
   return (
     <div>
       <h4>Colaboradores</h4>  
-      <table className='table'>
-      <tbody>
-        { list.length > 0 ? (
-          list.map((collaborator:Collaborator) => (
-          <tr className='m-2' key={collaborator.collaboratorId}>
-            <td>{collaborator.user && collaborator.user.username}</td>
-          </tr>))):(<div>No posee en la actualidad.</div>)
-        }
-        </tbody>  
-      </table>
+      { list.length > 0 ? ( 
+        <table className='table'>
+          <tbody>
+            {  list.map((collaborator:Collaborator) => (
+              <tr className='m-2' key={collaborator.collaboratorId}>
+                <td>{collaborator.user && collaborator.user.username}
+                <DeleteCollaboratorButton email={collaborator.user.email} /></td>
+              </tr>))
+            }
+          </tbody>  
+        </table>):(
+        <div>No posee en la actualidad.</div>)
+      }
     </div>
   )
 }
