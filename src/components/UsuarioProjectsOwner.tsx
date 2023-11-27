@@ -1,3 +1,4 @@
+"use client"
 import { Project } from "@/app/interfaces/Project";
 import { API_URL } from "@/config/constants";
 import { ProjectCard } from "./ProjectCard";
@@ -5,6 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function UsuarioProjectsOwner({id}:{id: number}) {
   const [projects, setProjects] = useState<Project[]>();
+ 
   useEffect(() => {
     const fetchUsuarioProjectsOwner = async () => {
         try {
