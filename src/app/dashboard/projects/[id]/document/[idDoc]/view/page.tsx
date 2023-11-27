@@ -8,21 +8,23 @@ import { API_URL } from "@/config/constants";
 import { capitalize } from "@/lib/utils";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { decode,} from 'html-entities';
+import EditDocumentButton from "@/app/dashboard/components/edit-document-button";
 
-
+const modules = {
+  toolbar: false,
+};
 
 {/* aca traer documento completo ya tengo document pero deberia traer revisiones...*/}
 export default function ViewDocumentPage() {
-    const { token, user } = useAuth();
     const router = useRouter();
+    const { token, user } = useAuth();
     const {selectedProject}= useProjects();    
-    const {id} = useParams();
     const {idDoc} = useParams();
-    const [titulo, setTitulo]= useState("");
-    const [refProject, setRefProject]= useState<number>();
     const [document, setDocument] = useState<DocumentComplete>();
-    const [idDocument,setIdDocument] = useState(idDoc);
- 
+                
     async function fetchDocumentComplete() {
       try {
         const response = await fetch(`${API_URL}/document/${idDoc}/view`);
@@ -38,11 +40,8 @@ export default function ViewDocumentPage() {
         router.push('/')
       }      
     }, [token,user])
-            
-    useEffect(()=>{
-      fetchDocumentComplete();
-      
-    },[idDoc])
+         
+    useEffect(()=>{fetchDocumentComplete()},[idDoc])
 
     return (
         <section>
@@ -52,7 +51,17 @@ export default function ViewDocumentPage() {
             { label: `${selectedProject && capitalize(selectedProject?.title)}`, href: `/dashboard/projects/${selectedProject?.projectId}`,},
             { label: `${document && capitalize(document?.title)}`, href: `/dashboard/projects/${selectedProject?.projectId}/document/${idDoc}`,active:true }]}/>
           <hr/>
-          {document && <DocumentView documentComplete={document} />}
+          <EditDocumentButton/>
+          {/*<DeleteProjectButton/>*/}
+          <article>
+            <div className="row">
+                <div className="col-12 page-title py-5">
+                    <h1 className="">{document?.title}</h1>
+                </div>                
+            </div>
+            <ReactQuill modules={modules} readOnly={true} theme="snow" value={decode(document?.content)} />
+          </article>  
+
         </section>
     );
 }

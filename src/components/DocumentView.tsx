@@ -1,8 +1,16 @@
+"use client"
 
 import { DocumentComplete } from "@/app/interfaces/Document";
 import styles from '@/app/page.module.css';
 import owen from '@/components/DocumentView.module.css';
 import CollaboratorAutorCard from "./CollaboratorAutorCard";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { decode,} from 'html-entities';
+
+const modules = {
+    toolbar: false,
+  };
 
 export default function DocumentView({ documentComplete }: { documentComplete: DocumentComplete }) {
     return (
@@ -12,9 +20,7 @@ export default function DocumentView({ documentComplete }: { documentComplete: D
                     <h1 className={styles.title}>{documentComplete.title}</h1>
                 </div>
                 <div className="col-12">
-                    <div className={styles.description}>
-                        <p className={owen.paragraphs}>{documentComplete.content}</p>
-                    </div>
+                <ReactQuill modules={modules} readOnly={true} theme="snow" value={decode(documentComplete.content)} />                    
                 </div>
             </div>
             <div className="row g-3 my-4">    

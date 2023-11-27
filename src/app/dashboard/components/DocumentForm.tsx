@@ -1,32 +1,49 @@
 "use client";
 import 'react-toastify/dist/ReactToastify.css';
 import { useProjects } from "@/app/context/ProjectContext";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useRef, useEffect, } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useDocument } from '@/app/context/DocumentContext';
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
+import { decode } from 'html-entities';
 
+const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ size: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
+        [{ font: [] }],        
+      ],
+    },
+  };
+
+  const formats = ['header','bold', 'italic', 'underline', 'strike','size', 'list', 'indent','color', 'background','align', 'font','link',];
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function DocumentForm() {    
     const router = useRouter();
+    const {id,idDoc}= useParams();
     const [isLoading, setIsLoading] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("")
-    const [messageLog, setMessageLog] = useState("")
+    const [messaggesLog, setMessaggesLog] = useState("")
     const titleRef = useRef<HTMLInputElement>(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const { selectedProject} = useProjects();
     const {selectedDocument, setSelectedDocument,createDocument,updateDocument} = useDocument();
         
-    
-    
     useEffect(() => {
-        console.log(`Este es selected cuando entra: ${selectedDocument}`);
         if (selectedDocument) {
-            {/*setTitle(selectedDocument.title);
-            setContent(selectedDocument.content || "");
-        setMessageLog(selectedDocument.messageLog || "");*/}
-            
+            setTitle(selectedDocument.title);
+            setContent(decode(selectedDocument.content) || "");           
         }
     }, [selectedDocument]);
    
@@ -35,16 +52,17 @@ export default function DocumentForm() {
         {/*setIsLoading(true);*/}
         try {
             if (selectedDocument) {
-              const response = await updateDocument(selectedDocument.documentId,{title, content,messageLog})
+              const response = await updateDocument(selectedDocument.documentId,{title, content,messaggesLog})
               switch (response){
-                    case 201:
-                        setSelectedDocument(null);
+                    case 200:
+                        {/*setSelectedDocument(null);
                         setTitle("");
                         setContent("");
-                        setMessageLog("");
-                        toast.success('Proyecto actualizado con éxito', {position:'top-right',   autoClose: 2000,pauseOnHover: false,});
+                        setMessageLog("");*/}
+                        toast.success('Documento actualizado con éxito', {position:'top-right',   autoClose: 2000,pauseOnHover: false,});
                         setTimeout(() => {
-                            router.push('/dashboard/projects');
+                            router.push(`/dashboard/projects/${id}/document/${idDoc}/view`);
+                            router.refresh();                            
                         }, 2500);
                         {/*setIsSubmitted(true);*/}
                         break;  
@@ -52,12 +70,14 @@ export default function DocumentForm() {
                         toast.error(`Algo salio mal`, { position: 'bottom-right', autoClose: 3000, });
                         break;
                 }                    
-            } else {            
-                const response = await createDocument({title,content,messageLog});                
+            } else {               
+                const response = await createDocument({title,content,messaggesLog});                
                 switch (response){
                     case 201:
                         toast.success('Documento creado con éxito', {position:'top-right',   autoClose: 2000,pauseOnHover: false,});
-                        setTimeout(() => {router.push(`/dashboard/projects/${selectedProject?.projectId}`);
+                        setTimeout(() => {
+                            router.push(`/dashboard/projects/${selectedProject?.projectId}`);
+                            router.refresh();
                         }, 2500);
                         {/*setIsSubmitted(true);*/}
                         break;                      
@@ -73,7 +93,7 @@ export default function DocumentForm() {
             toast.error('Error al crear Documentto', {position: 'bottom-right',autoClose: 3000,
             });
             setIsSubmitted(false); 
-            router.push('/dashboard/projects');
+            router.push('/dashboard/projects');            
         }
         {/*finally {
             setIsLoading(false);      
@@ -82,7 +102,7 @@ export default function DocumentForm() {
                  
     return (
         <section>
-            {isSubmitted ? ( <p>¡Proyecto registrado exitosamente</p>) : 
+            {isSubmitted ? ( <p>¡Documento registrado exitosamente</p>) : 
                 (<>
                 {
                 (selectedDocument===null) ? (
@@ -116,31 +136,27 @@ export default function DocumentForm() {
                     <label 
                             className="form-label" htmlFor="content">Contenido<sup aria-hidden="true"></sup>*
                         </label> 
-                        <textarea
-                            name="content"
-                            placeholder="Ingresa aqui la informacion del documento"
-                            autoComplete='off'
-                            className="form-control bg-light"
-                            rows={15}
-                            id="content"
+                        <ReactQuill 
+                            modules={modules}
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                        >                    
-                        </textarea>
+                            placeholder="Escriba aquí..."
+                            theme="snow"
+                            onChange={setContent} 
+                        />                        
                     </div> 
                     <div className="form-group text-start mb-3">
                         <label 
                             className="form-label" htmlFor="content">Registro de cambios<sup aria-hidden="true"></sup>*
                         </label> 
                         <textarea
-                            name="messageLog"
+                            name="messaggesLog"
                             placeholder="Ingresa una breve descripción de los cabios ingresados"
                             autoComplete='off'
                             className="form-control bg-light"
                             rows={2}
-                            id="messageLog"
-                            value={messageLog}
-                            onChange={(e) => setMessageLog(e.target.value)}
+                            id="messaggesLog"
+                            value={messaggesLog}
+                            onChange={(e) => setMessaggesLog(e.target.value)}
                         >                    
                         </textarea>
                     </div>                      
@@ -161,8 +177,8 @@ export default function DocumentForm() {
                                     setSelectedDocument(null);
                                     setTitle("");
                                     setContent("");
-                                    setMessageLog("");
-                                    router.push(`/dashboard/projects/${selectedProject}`);
+                                    setMessaggesLog("");
+                                    router.push(`/dashboard/projects/${id}`);
                                 }}
                             >
                                 Cancelar
