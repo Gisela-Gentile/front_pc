@@ -1,22 +1,22 @@
 "use client";
 
 import { createContext, useState, useContext } from "react";
-import { CreateDocument, UpdateDocument, Document } from "@/app/interfaces/Document";
+import { CreateDocument, UpdateDocument, Document, DocumentComplete } from "@/app/interfaces/Document";
 import { useAuth } from "./AuthContext";
 import { useProjects } from "./ProjectContext";
 import { API_URL } from "@/config/constants";
 
 export const DocumentContext = createContext<{
-  createDocument: (Document: CreateDocument) => Promise<any>;
+  createDocument: (document: CreateDocument) => Promise<any>;
   deleteDocument: (id: number) => Promise<any>;
-  selectedDocument: Document | null;
-  setSelectedDocument: (document: Document | null) => void;
+  selectedDocument: DocumentComplete | null;
+  setSelectedDocument: (documentComplete: DocumentComplete | null) => void;
   updateDocument: (id: number, document: UpdateDocument) => Promise<any>;
 }>({
   createDocument: async (document: CreateDocument) => {},
   deleteDocument: async (id: number) => {},
   selectedDocument: null,
-  setSelectedDocument: (document: Document | null) => {},
+  setSelectedDocument: (documentComplete: DocumentComplete | null) => {},
   updateDocument: async (id: number, document: UpdateDocument) => {},
 });
 
@@ -31,17 +31,10 @@ export const useDocument = () => {
 export const DocumentProvider = ({ children }: { children: React.ReactNode }) => {
   const { token } = useAuth();
   const { selectedProject} = useProjects();
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
-
-  {/*async function loadDocuments() {
-    const res = await fetch("/api/Documents");
-    const data = await res.json();
-    setDocuments(data);
-  }*/}
+  const [selectedDocument, setSelectedDocument] = useState<DocumentComplete | null>(null);
 
   async function createDocument(document: CreateDocument) {
     try {
-        console.log(selectedProject?.projectId);
         const response = await fetch(`${API_URL}/project/${selectedProject?.projectId}/add/document`,{
           method: "POST",
           body: JSON.stringify(document),
@@ -59,7 +52,7 @@ export const DocumentProvider = ({ children }: { children: React.ReactNode }) =>
 
   async function deleteDocument(id: number) {
     try {
-      const response = await fetch(`${API_URL}/Documents/id`, {
+      const response = await fetch(`${API_URL}/documents/id`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -69,20 +62,24 @@ export const DocumentProvider = ({ children }: { children: React.ReactNode }) =>
     return response.status
     } catch (error: any){
        return { error };  
-    }
-    {/*setDocuments(documents.filter((document) => document.id !== id));*/}
+    }    
   }
 
   async function updateDocument(id: number, document: UpdateDocument) {
-    const res = await fetch("Documents/" + id, {
-      method: "PUT",
-      body: JSON.stringify(document),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    {/*setDocuments(documents.map((document) => (document.id === id ? data : document)));*/}
+    try {
+      const response = await fetch(`${API_URL}/project/${selectedProject?.projectId}/edit/${id}`,{
+        method: "PUT",
+        body: JSON.stringify(document),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':`Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      return response.status
+    } catch (e){
+        return e
+    }    
   }
 
   return (

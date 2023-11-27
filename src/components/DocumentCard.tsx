@@ -1,4 +1,3 @@
-
 import { DocumentComplete } from "@/app/interfaces/Document"
 import Link from "next/link"
 import CollaboratorAutorCard from "./CollaboratorAutorCard"
