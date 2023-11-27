@@ -1,7 +1,6 @@
 import { Collaborator,} from '@/app/interfaces/Collaborator';
 import ItemListCollaborator from './ItemListCollaborator';
 
-
 export default function ListCollaboratorsProject({listCollaborators}:{listCollaborators:Collaborator[]}) {
      
   return (
