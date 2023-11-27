@@ -7,7 +7,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import CreateProjectButton from "../components/create-project-button";
 import ViewTableProjects from "../components/ViewTableProjects";
 
-export default function ProjectAddPage() {
+export default function ProjectGeneralPage() {
     const { token, user } = useAuth();
     const router = useRouter();
     const {projectsOwner,projectsCollaborator } = useProjects();
@@ -15,7 +15,7 @@ export default function ProjectAddPage() {
       if (!user) {
         router.push('/')
       }
-    }, [])
+    }, [token,user])
     
     return (
       <section>
