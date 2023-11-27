@@ -2,7 +2,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from "@/config/constants";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect, } from "react";
+import { useState, } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from '@/app/context/AuthContext';
 
@@ -24,15 +24,14 @@ export default function CategoryForm() {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            console.log(res);
             const data = await res.json();
-            console.log(` esto es data: ${data}`);
-            
             switch (res.status) {
                 case 201:
                     setNombre("");
-                    toast.success('La categoría fue creada con éxito', { position: 'top-right', autoClose: 2000, pauseOnHover: false, });
-                    setTimeout(() => { router.refresh(); }, 2500);
+                    toast.success('La categoría fue creada con éxito', { position: 'top-right', autoClose: 1500, pauseOnHover: false, });
+                    setTimeout(() => { 
+                        router.refresh(); 
+                    }, 1600);
                     setIsSubmitted(true);
                     break;
                 case 400:

@@ -29,10 +29,7 @@ export default function AddCollaboratorForm() {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-            {/*console.log(res);*/}
             const data = await res.json();
-            {/*console.log(` esto es data: ${data}`);*/}
-            
             switch (res.status) {
                 case 201:
                     setEmail("");

@@ -1,4 +1,3 @@
-
 import { Project } from '@/app/interfaces/Project';
 import { ViewTableProjectsLinkItem } from './ViewTableProjectsLinkItem';
 import Link from 'next/link';

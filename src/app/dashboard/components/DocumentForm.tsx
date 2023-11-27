@@ -17,14 +17,11 @@ const modules = {
         [{ size: [] }],
         [{ list: 'ordered' }, { list: 'bullet' }],
         [{ indent: '-1' }, { indent: '+1' }],
-        [{ color: [] }, { background: [] }],
-        [{ align: [] }],
-        [{ font: [] }],        
-      ],
+        ],
     },
   };
 
-  const formats = ['header','bold', 'italic', 'underline', 'strike','size', 'list', 'indent','color', 'background','align', 'font','link',];
+  const formats = ['header','bold', 'italic', 'underline', 'strike','size', 'list', 'indent',];
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 

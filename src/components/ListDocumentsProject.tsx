@@ -1,9 +1,9 @@
-
+"use client"
 import ItemListDocument from './ItemListDocument';
 import { ItemLastDocument } from '@/app/interfaces/Document';
 
 export default function ListDocumentsProject({listDocuments}:{listDocuments:ItemLastDocument[]}) {
-     
+    
   return (
     <section className='py-4'>      
       <div className='row'>
@@ -14,11 +14,7 @@ export default function ListDocumentsProject({listDocuments}:{listDocuments:Item
           </thead>  
           <tbody>
           {
-            listDocuments.map((document:ItemLastDocument) => (
-              <tr key={document.documentId} className="">
-                <ItemListDocument document={document} /> 
-              </tr>
-            ))
+            listDocuments.map((document:ItemLastDocument) => (<ItemListDocument key={document.documentId} document={document} />))
           }
           </tbody>
         </table> 

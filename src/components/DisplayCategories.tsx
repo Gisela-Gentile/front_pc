@@ -1,15 +1,26 @@
+"use client"
 import { API_URL } from '@/config/constants';
 import { Category } from '@/app/interfaces/Category';
 import styles from '@/components/DisplayCategories.module.css'
 import ListCategories from './ListCategories';
-async function fetchCategories():Promise<Category[]> {
-  const res = await fetch(`${API_URL}/category/view/all`);
-  const data = await res.json();
-  return data;
-}
+import { useEffect, useState } from 'react';
 
-export default async function DisplayCategories({format}:{format:string}) {
-  const categories = await fetchCategories();
+export default function DisplayCategories({format}:{format:string}) {
+  
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+        try {
+          const res = await fetch(`${API_URL}/category/view/all`);
+          const data = await res.json();
+          setCategories(data);
+        } catch (error) {
+            console.error('Error recuperando categorias', error);
+        }
+    };
+    fetchCategories();
+  }, []);
+  
   return (
     <div className={styles.divContent}>
         <ul className={`${(format==='list-button')?'d-flex':''}`}>
