@@ -4,7 +4,7 @@ import { Project } from "./Project";
 export type CreateDocument = {
   title: string,
   content: string,
-  messageLog:string
+  messaggesLog:string
 }
 export type UpdateDocument = CreateDocument;
 
