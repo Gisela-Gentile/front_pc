@@ -1,16 +1,25 @@
-
+"use client"
 import { DocumentComplete } from '@/app/interfaces/Document';
 import { API_URL } from '@/config/constants';
 import { DocumentCard } from './DocumentCard';
+import { useEffect, useState } from 'react';
 
-async function fetchDocuments():Promise<DocumentComplete[]> {
-  const res = await fetch(`${API_URL}/document/most-viewed`,{cache: 'no-store'});
-  const data = await res.json();
-  return data;
-}
-
-export default async function DocumentsMostViewed() {
-  const documents = await fetchDocuments();
+export default function DocumentsMostViewed() {
+  const [documents, setDocuments] = useState<DocumentComplete[]>([])
+ 
+  useEffect(() => {
+    const fetchDocumentCompleteMostViewed = async () => {
+        try {
+          const res = await fetch(`${API_URL}/document/most-viewed`,{ next: { revalidate: 30 },});
+          const data = await res.json();
+          setDocuments(data);
+        } catch (error) {
+            console.error('Error recuperando documentos', error);
+        }
+    };
+    fetchDocumentCompleteMostViewed();
+  }, []);
+  
   return (
     <section className='p-4'>      
       <h2 className="py-4">Documentos Mas visitados</h2>
