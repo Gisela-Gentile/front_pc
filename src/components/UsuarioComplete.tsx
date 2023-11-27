@@ -1,19 +1,26 @@
+"use client"
 import { API_URL } from "@/config/constants";
 import { User } from "@/app/interfaces/User";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-async function fetchUsuario(id: number): Promise<User> {
-  const res = await fetch(`${API_URL}/user/${id}/view`);
-  const data = await res.json();
-  return data;
-}
-
-export default async function UsuarioComplete({ id }: { id: number }) {
-  const user = await fetchUsuario(id);
-
+export default function UsuarioComplete({ id }: { id: number }) {
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    const fetchUsuario = async () => {
+        try {
+          const res = await fetch(`${API_URL}/user/${id}/view`);
+          const data = await res.json();
+          setUser(data);
+        } catch (error) {
+            console.error('Error recuperando proyectos donde contribuye el Usuario', error);
+        }
+    };
+    fetchUsuario();
+  }, []);
+  
   return (
-    <>
-    
+    <>{user && (    
       <div className="d-flex justify-content-between align-items-start"  >
         <Image
           src="/assets/avatar-verde.png"
@@ -28,8 +35,8 @@ export default async function UsuarioComplete({ id }: { id: number }) {
           <h4>{user.email}</h4>
           <h4> Fecha de registro: {user.dateRegistration && new Date(user.dateRegistration).toLocaleDateString()}</h4>
         </div>
-      </div>
-
+      </div>)
+      }
     </>
   )
 }

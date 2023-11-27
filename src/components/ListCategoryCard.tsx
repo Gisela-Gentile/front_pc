@@ -5,7 +5,6 @@ import styles from './ListCategoryCard.module.css';
 import { ProjectCard } from '@/components/ProjectCard';
 import { API_URL } from '@/config/constants';
 
-
 async function fetchCategories() {
     const res = await fetch(`${API_URL}/category/view/all`);
     const data = await res.json();
@@ -66,7 +65,6 @@ function ListCategories() {
     return (
         <section className=''>
             <div className='row'>
-
                 <div className='col-md-11'>
                     <ul className={styles.defaultItemList}>
                         {categories.length > 0 ? (

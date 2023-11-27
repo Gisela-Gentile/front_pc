@@ -9,6 +9,7 @@ export function Navegacion() {
   const pathname = usePathname();
   const router = useRouter();
   const { token, user,signOut } = useAuth();
+  
   const logout = async () => {
     try {
       signOut();

@@ -1,25 +1,34 @@
+"use client"
 import { useAuth } from "@/app/context/AuthContext";
 import { Collaborator } from "@/app/interfaces/Collaborator";
 import { Project } from "@/app/interfaces/Project";
 import { API_URL } from "@/config/constants";
 import DeleteCollaboratorButton from "./delete-collaborator-button";
+import { useEffect, useState } from "react";
 
-
-async function fetchCollaborartors(id:number):Promise<Collaborator[]> {
-    const {token} = useAuth()
-    const res = await fetch(`${API_URL}/project/${id}/collaborators`,{
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`,
-        },
-    });
-    const data = await res.json();
-    return data;
-  }  
-
-export default async function ProjectViewCollaborators({ project }:{ project: Project },) {
-  const list = await fetchCollaborartors(project.projectId);
+export default function ProjectViewCollaborators({ project }:{ project: Project },) {
+  const {token} = useAuth();
+  const [list,setList] = useState<Collaborator[]>([]);
+  
+  useEffect(() => {
+    const fetchCollaborators = async () => {
+        try {
+          const res = await fetch(`${API_URL}/project/${project.projectId}/collaborators`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
+          setList(data);
+        } catch (error) {
+            console.error('Error recuperando documentos', error);
+        }
+    };
+    fetchCollaborators();
+  }, []);
+  
   return (
     <div>
       <h4>Colaboradores</h4>  

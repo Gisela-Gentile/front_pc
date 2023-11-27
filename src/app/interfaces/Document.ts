@@ -18,8 +18,6 @@ export type Document = {
   author: Collaborator,
 }
 
-
-
 export type ItemLastDocument = {
   title:string,
   creationDate: string,
