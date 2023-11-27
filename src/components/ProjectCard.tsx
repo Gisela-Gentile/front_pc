@@ -1,6 +1,7 @@
 'use client'
 import styles from './ProjectCard.module.css'
 import { Project } from '@/app/interfaces/Project'
+import { truncate } from '@/lib/utils';
 import Link from 'next/link';
 
 export function ProjectCard({ project }:{ project: Project },) {
