@@ -15,7 +15,7 @@ import CreateDocumentButton from "../../components/create-document-button";
 import { capitalize } from "@/lib/utils";
 
 export default function ProjectPage() {
-  const { user } = useAuth();
+  const { token, user } = useAuth();
   const router = useRouter();
   const {id} = useParams();
   const {projectsOwner,selectedProject} = useProjects();    
@@ -26,9 +26,8 @@ export default function ProjectPage() {
     if (!user) {
       router.push('/')
     } 
-  }, [user])
- 
-  
+  },[token,user])
+   
   useEffect(()=>{
       if (selectedProject!==null){
           const finded = projectsOwner.find((project) => (project.projectId === Number(id)));
