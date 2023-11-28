@@ -70,14 +70,14 @@ export default function CategoryForm() {
                 </div>
                 <div className="flex justify-end gap-x-2">
                     <button
-                        className="px-5 py-2 text-black bg-blue-600 rounded"
+                        className="btn btn-primary btn-block m-2"
                         disabled={!nombre}
                         type="submit"
                     >Crear Categoría
                     </button>
 
                     <button
-                        className="px-5 py-2 text-black bg-slate-400 hover:bg-slate-500 rounded-md"
+                        className="btn btn-danger btn-block m-2"
                         type="button"
                         onClick={() => { setNombre(""); }}
                     >Limpiar</button>

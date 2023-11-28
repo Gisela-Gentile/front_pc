@@ -14,16 +14,16 @@ async function fetchDocumentComplete(id: number): Promise<DocumentComplete> {
 export default async function PageDocument({ params: { id }, }: { params: { id: string } }) {
   const documentComplete = await fetchDocumentComplete(Number(id));
   return (
-    <div className="container"> 
+    <> 
       <Breadcrumbs breadcrumbs={[
         { label: 'Inicio', href: '/', },
         { label: `${documentComplete.projectTitle}`, href: `/project/${documentComplete.projectId}`,active: true, },]}/>
       <hr/>   
       <div className="row">
-        <div className="offset-2 col-8">             
+        <div className=" col-12">             
           <DocumentView documentComplete={documentComplete} />
         </div>
       </div>
-    </div>  
+    </>  
   )
 }
